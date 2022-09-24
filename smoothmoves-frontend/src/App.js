@@ -10,6 +10,7 @@ function App() {
         <Route path="/form" element={<Form />}/>
         <Route path="/checklist" element={<Checklist />}/>
         <Route path="/export" element={<Export />}/>
+        <Route path="/email" element={<Email />}/>
       </Routes>
     </div>
   );
