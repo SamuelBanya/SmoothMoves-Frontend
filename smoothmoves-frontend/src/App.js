@@ -9,6 +9,7 @@ function App() {
         <Route path="/" element={<About />}/>
         <Route path="/form" element={<Form />}/>
         <Route path="/checklist" element={<Checklist />}/>
+        <Route path="/export" element={<Export />}/>
       </Routes>
     </div>
   );
