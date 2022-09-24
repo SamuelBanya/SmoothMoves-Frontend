@@ -1,6 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
 import { Routes, Route } from "react-router-dom"
+import About from "./About"
+import Form from "./Form"
+import Checklist from "./Checklist"
+import Export from "./Export"
+import Email from "./Email"
 
 function App() {
   return (
