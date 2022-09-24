@@ -1,4 +1,5 @@
 import React from "react";
+import App from "./App";
 
 function About() {
     return (
@@ -29,3 +30,5 @@ function About() {
         </div>
     )
 }
+
+export default About;
