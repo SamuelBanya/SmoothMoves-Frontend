@@ -19,8 +19,7 @@ function Form() {
                     // Height, width, length (inches, later converted to square feet)
                     // Weight (lbs, pounds)
                     <label htmlFor="itemAmount"></label>
-                    <input />
-                    // TODO: Add input button with a '+' button to advance the amount of items present
+                    <input type="number" min="0"/>
                     // TODO: For the 'multiple forms in a single page' idea, use the 'carosel' option
                 </div>
                 <br />
