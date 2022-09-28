@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 
 function Export() {
     const [moves, setMoves] = useState([]);
+    const [fileExport, setFileExport] = useState([]);
 
     useEffect(() => {
         fetch("http://localhost:/moves")
@@ -17,11 +18,11 @@ function Export() {
             <form>
                 <div>
                     <label htmlFor="specificMove">Choose A Move</label>
-                    <select onChange={setExport} id="exportSelect" name="exportSelect">
-                        { 
-                            moves.forEach(move) => {
-                                <option>{move}</option>
-                            }
+                    <select onChange={setFileExport} id="exportSelect" name="exportSelect">
+                        {
+                            // moves.forEach(move) => {
+                            //     <option>{move}</option>
+                            // }
                         }
                     </select>
                 </div>

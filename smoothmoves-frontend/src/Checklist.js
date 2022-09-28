@@ -6,13 +6,15 @@ function Checklist() {
         fetch("http://localhost/moves")
         .then(response => response.json())
         .then(data => {
-            setChecklist(data);
+            checklist = setChecklist(data);
         })
     }, [])
 
     return (
-        { checklist.forEach(checklistItem => {
-        }) }
+        <div></div>
+        // { checklist.forEach(checklistItem => {
+        //     console.log(checklistItem);
+        // }) }
     )
 }
 
