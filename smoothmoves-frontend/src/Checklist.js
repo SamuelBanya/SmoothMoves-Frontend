@@ -6,7 +6,7 @@ function Checklist() {
         fetch("http://localhost/moves")
         .then(response => response.json())
         .then(data => {
-            setChecklist(checklist);
+            setChecklist(data);
         })
     }, [])
 
