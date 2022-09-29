@@ -5,7 +5,7 @@ function Export() {
     const [fileExport, setFileExport] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:/moves")
+        fetch("http://localhost:9292/moves")
         .then(response => response.json())
         .then(data => {
             setMoves(data);
