@@ -21,40 +21,59 @@ const linkStyles = {
 
 function NavBar() {
     return (
-        <div>
-            <h1>Smooth Moves</h1>
-            <h2>A web app to help you move anywhere in the United States!</h2>
-            <NavLink
-                to="/"
-                style={linkStyles}
-                activeStyle={{ background: "darkblue" }}>
-                    Move Form
-            </NavLink>
-            <NavLink
-                to="/checklist"
-                style={linkStyles}
-                activeStyle={{ background: "darkblue" }}>
-                    Checklist
-            </NavLink>
-            <NavLink
-                to="/export"
-                style={linkStyles}
-                activeStyle={{ background: "darkblue" }}>
-                    Export
-            </NavLink>
-            <NavLink
-                to="/email"
-                style={linkStyles}
-                activeStyle={{ background: "darkblue" }}>
-                    Email
-            </NavLink>
-            <NavLink
-                to="/about"
-                style={linkStyles}
-                activeStyle={{ background: "darkblue" }}>
-                    About
-            </NavLink>
-        </div>
+        <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static">
+            <Toolbar>
+                <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+                >
+                <MenuIcon />
+                </IconButton>
+                <IconButton>
+                    <NavLink
+                        to="/"
+                    >
+                        About
+                    </NavLink>
+                </IconButton>
+                <IconButton>
+                    <NavLink
+                        to="/moveform"
+                    >
+                        Move Form
+                    </NavLink>
+                </IconButton>
+                <IconButton>
+                    <NavLink
+                        to="/checklist"
+                    >
+                        Checklist
+                    </NavLink>
+                </IconButton>
+                <IconButton>
+                    <NavLink
+                        to="/email"
+                    >
+                        Email
+                    </NavLink>
+                </IconButton>
+                <IconButton>
+                    <NavLink
+                        to="/export"
+                    >
+                        Export
+                    </NavLink>
+                </IconButton>
+                <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    Smooth Moves
+                </Typography>
+            </Toolbar>
+            </AppBar>
+      </Box>
     )
 }
 
