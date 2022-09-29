@@ -6,6 +6,7 @@ import Form from "./MoveForm"
 import Checklist from "./Checklist"
 import Export from "./Export"
 import Email from "./Email"
+import NavBar from "./NavBar"
 
 function App() {
   return (
