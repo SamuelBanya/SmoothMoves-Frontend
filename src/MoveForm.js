@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import MoveFormItem from "./MoveFormItem";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -24,7 +25,7 @@ function Form() {
 
     return (
         <div>
-            <h2>Form</h2>
+            <h2>Move Form</h2>
             <form onSubmit={handleSubmit}>
                 <Grid container alignItems="center" justify="center" direction="column">
                     <Grid item>
@@ -66,6 +67,7 @@ function Form() {
                     <Button variant="contained" color="primary" type="submit">Submit</Button>
                 </Grid>
             </form>
+            <MoveFormItem />
         </div>
         )
 }
