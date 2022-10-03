@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import MoveFormItem from "./MoveFormItem";
+import ItemForm from "./ItemForm";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-function Form() {
+function Move() {
     const [pickupLocation, setPickupLocation] = useState("");
     const [dropoffLocation, setDropoffLocation] = useState("");
 
@@ -48,28 +48,12 @@ function Form() {
                             onChange={handleInputChange}
                         />
                     </Grid>
-                    // NOTE: I need to iterate through the amount of items
-                    // that the user wants to enter, and therefore ask
-                    // them the following details for each item:
-                    // Height, width, length (inches, later converted to square feet)
-                    // Weight (lbs, pounds)
-                    <Grid item>
-                        <TextField 
-                            id="itemAmount"
-                            name="itemAmount"
-                            label="Item Amount"
-                            type="number"
-                            value={formValues.itemAmount}
-                            onChange={handleInputChange}
-                        />
-                    </Grid>
                     <br />
                     <Button variant="contained" color="primary" type="submit">Submit</Button>
                 </Grid>
             </form>
-            <MoveFormItem />
         </div>
         )
 }
 
-export default Form;
+export default Move;

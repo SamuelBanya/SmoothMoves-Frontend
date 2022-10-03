@@ -42,9 +42,16 @@ function NavBar() {
                 </IconButton>
                 <IconButton>
                     <NavLink
-                        to="/moveform"
+                        to="/moves"
                     >
-                        Move Form
+                        Move
+                    </NavLink>
+                </IconButton>
+                <IconButton>
+                    <NavLink
+                        to="/items"
+                    >
+                        Items
                     </NavLink>
                 </IconButton>
                 <IconButton>
