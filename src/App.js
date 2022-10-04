@@ -90,6 +90,23 @@ function App() {
     setSelectTagValue(e.target.value);
   }
 
+  useEffect(() => {
+    fetch("http://localhost:9292/moves", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+    })
+    .then((response) => response.json())
+    .then((dataArray) => {
+      console.log("dataArray from useEffect() based fetch request to filter for selectTagValue: ", dataArray);
+      console.log("selectTagValue: ", selectTagValue);
+      let matchingElement = dataArray.find(element => element["id"] === selectTagValue);
+      console.log("matchingElement: ", matchingElement);
+    })
+  })
+
   return (
     <div className="App">
       <NavBar />
