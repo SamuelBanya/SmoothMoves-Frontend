@@ -4,24 +4,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 // NOTE: I need to send down the amount of items to iterate through as props to this child component
-function ItemForm() {
-    const [formValues, setFormValues] = useState("");
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormValues({
-            ...formValues,
-            [name]: value,
-        });
-    };
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        console.log("e: ", e);
-    }
-
+function ItemForm({handleItemFormSubmit}) {
     function chooseMove() {
-
     }
 
     var items = [
@@ -36,9 +20,9 @@ function ItemForm() {
     ]
 
 
-                // {
-                //     items.map( (item, i) => <Item key={i} item={item}/>)
-                // }
+    // {
+    //     items.map( (item, i) => <Item key={i} item={item}/>)
+    // }
 
     return (
         <div>
@@ -71,8 +55,6 @@ function ItemForm() {
                         name="itemAmount"
                         label="Item Amount"
                         type="number"
-                        value={formValues.itemAmount}
-                        onChange={handleInputChange}
                     />
                 </Grid>
                 <br />
