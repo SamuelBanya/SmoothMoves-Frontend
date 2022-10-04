@@ -3,8 +3,9 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-function MoveForm({handleMoveFormSubmit, formData, handleChange}) {
-
+function MoveForm({handleMoveFormSubmit, moveFormData, handleMoveChange}) {
+    console.log("\n\nmoveFormData sent down as props from App component to child MoveForm component: ")
+    console.log("moveFormData: ", moveFormData)
     return (
         <div>
             <h2>Create New Move</h2>
@@ -16,8 +17,8 @@ function MoveForm({handleMoveFormSubmit, formData, handleChange}) {
                             name="pickupLocation"
                             label='Pickup Location (ex: "New York, NY")'
                             type="text"
-                            value={formData.pickupLocation}
-                            onChange={handleChange}
+                            // value={moveFormData.pickupLocation}
+                            onChange={handleMoveChange}
                         />
                     </Grid>
                     <br />
@@ -27,8 +28,8 @@ function MoveForm({handleMoveFormSubmit, formData, handleChange}) {
                             name="dropoffLocation"
                             label='Dropoff Location (ex: "Orlando, FL")'
                             type="text"
-                            value={formData.dropoffLocation}
-                            onChange={handleChange}
+                            // value={moveFormData.dropoffLocation}
+                            onChange={handleMoveChange}
                         />
                     </Grid>
                     <br />

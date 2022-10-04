@@ -13,15 +13,17 @@ import React, {useState} from "react";
 function App() {
   const [moveList, setMoveList] = useState([{pickupLocation: "", dropoffLocation: ""}]);
 
-  const [formData, setFormData] = useState({
+  const [moveFormData, setMoveFormData] = useState({
     pickupLocation: "", 
     dropoffLocation: ""
   });
 
-  const handleChange = (e) => {
+  console.log("moveFormData (from parent App component): ", moveFormData);
+
+  const handleMoveChange = (e) => {
       // NOTE: This is the same as using obj2 = {...obj1, name: "Sam"}
       // This is because we are utilizing the existing data by using the spread operator:
-      setFormData({...formData, [e.target.name]: e.target.value});
+      setMoveFormData({...moveFormData, [e.target.name]: e.target.value});
   };
   // fetch(("https://localhost:9292/moves"), {
   //     method: "POST",
@@ -37,9 +39,9 @@ function App() {
 
   const handleMoveFormSubmit = (e) => {
     e.preventDefault();
-    setMoveList([formData, ...moveList]);
+    setMoveList([moveFormData, ...moveList]);
     // NOTE: This clears the form data upon each submission:
-    setFormData({
+    setMoveFormData({
         pickupLocation: "", 
         dropoffLocation: ""
     });
@@ -50,13 +52,12 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<About />}/>
-        <Route path="/moves" element={<MoveForm />}/>
+        <Route path="/moves" element={<MoveForm handleMoveFormSubmit={handleMoveFormSubmit} moveFormData={moveFormData} handleMoveChange={handleMoveChange} />}/>
         <Route path="/items" element={<ItemForm />}/>
         <Route path="/checklist" element={<Checklist />}/>
         <Route path="/export" element={<Export />}/>
         <Route path="/email" element={<Email />}/>
       </Routes>
-      <MoveForm handleMoveFormSubmit={handleMoveFormSubmit} formData={formData} handleChange={handleChange} />
     </div>
   );
 }
