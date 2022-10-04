@@ -11,7 +11,7 @@ import NavBar from "./NavBar"
 import React, {useState} from "react";
 
 function App() {
-  const [moveList, setMoveList] = useState([{pickupLocation: "", dropoffLocation: ""}]);
+  // const [moveList, setMoveList] = useState([{pickupLocation: "", dropoffLocation: ""}]);
 
   const [moveFormData, setMoveFormData] = useState({
     pickupLocation: "", 
@@ -25,25 +25,35 @@ function App() {
       // This is because we are utilizing the existing data by using the spread operator:
       setMoveFormData({...moveFormData, [e.target.name]: e.target.value});
   };
-  // fetch(("https://localhost:9292/moves"), {
-  //     method: "POST",
-  //     headers: {
-  //         "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(formValues),
-  // });
-  // .then((response) => response.json())
-  // .then((data) => {
-  //     console.log("data: ", data);
-  // })
 
   const handleMoveFormSubmit = (e) => {
     e.preventDefault();
-    setMoveList([moveFormData, ...moveList]);
-    // NOTE: This clears the form data upon each submission:
-    setMoveFormData({
-        pickupLocation: "", 
-        dropoffLocation: ""
+    // NOTE: This is the single lin that is causing the issue I am having since I need to just create an individual move based object, not a list of them
+    // setMoveList([moveFormData, ...moveList]);
+    // setMoveFormData(moveFormData);
+    console.log("moveFormData inside POST request: ", moveFormData);
+    fetch("http://localhost:9292/moves", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      // NOTE: I had to convert "pickupLocation" and "dropoffLocation" variables from the React frontend
+      // to the "pickup_location", and "dropoff_location" Ruby backend variable names by using destructuring:
+
+      // Related MDN reference:
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+      body: JSON.stringify({ "pickup_location": moveFormData["pickupLocation"], "dropoff_location": moveFormData["dropoffLocation"] }),
+    })
+    .then((response) => response.json())
+    .then((data) => { 
+      console.log("data: ", data);
+      // NOTE: This clears the form data upon each submission:
+      // console.log("Clearing form...")
+      // setMoveFormData({
+      //     pickupLocation: "", 
+      //     dropoffLocation: ""
+      // });
     });
   }
 

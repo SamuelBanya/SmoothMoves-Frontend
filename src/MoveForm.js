@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -17,7 +17,7 @@ function MoveForm({handleMoveFormSubmit, moveFormData, handleMoveChange}) {
                             name="pickupLocation"
                             label='Pickup Location (ex: "New York, NY")'
                             type="text"
-                            // value={moveFormData.pickupLocation}
+                            value={moveFormData.pickupLocation}
                             onChange={handleMoveChange}
                         />
                     </Grid>
@@ -28,7 +28,7 @@ function MoveForm({handleMoveFormSubmit, moveFormData, handleMoveChange}) {
                             name="dropoffLocation"
                             label='Dropoff Location (ex: "Orlando, FL")'
                             type="text"
-                            // value={moveFormData.dropoffLocation}
+                            value={moveFormData.dropoffLocation}
                             onChange={handleMoveChange}
                         />
                     </Grid>
