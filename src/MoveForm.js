@@ -11,13 +11,13 @@ import MenuItem from "@mui/material/MenuItem";
 // Use 'onChange' for <Select> tag to then call a callback function back up to the parent 'App.js' component which will then pre-populate the 'Pickup Location' and
 // 'Dropoff Location' in the 'Edit Existing Move' portion of the component:
 
-function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateMoveChange, handleEditMoveFormSubmit, editMoveFormData, handleEditMoveChange, selectValues}) {
+function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateMoveChange, handleEditMoveFormSubmit, editMoveFormData, handleEditMoveChange, selectValues, handleSelectTagChange, selectTagValue}) {
     console.log("\n\ncreateMoveFormData sent down as props from App component to child MoveForm component: ");
     console.log("createMoveFormData: ", createMoveFormData);
     let age = 0;
 
     console.log("selectValues from MoveForm child component: ", selectValues);
-    let menuItemsArray = selectValues.map(selectValue => <MenuItem value={selectValue["dropoff_location"]}>{selectValue["dropoff_location"]}</MenuItem> );
+    let menuItemsArray = selectValues.map(selectValue => <MenuItem key={selectValue["id"]} value={selectValue["id"]}>{selectValue["dropoff_location"]}</MenuItem> );
 
     console.log("menuItemsArray: ", menuItemsArray);
 
@@ -55,13 +55,13 @@ function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateM
             <h2>Edit Existing Move</h2>
             <form onSubmit={handleEditMoveFormSubmit}>
                 <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Select Dropoff Location</InputLabel>
                     <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={age}
-                    label="Age"
-                    onChange={handleEditMoveChange}
+                        labelId="demo-simple-select-label"
+                        id="selectTag"
+                        value={selectTagValue}
+                        label="Select Dropoff Location"
+                        onChange={handleSelectTagChange}
                     >
                         { menuItemsArray }
                     </Select>
@@ -75,7 +75,7 @@ function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateM
                             name="pickupLocation"
                             label='Pickup Location (ex: "New York, NY")'
                             type="text"
-                            // value={editMoveFormData.pickupLocation}
+                            value={editMoveFormData.pickupLocation}
                             onChange={handleEditMoveChange}
                         />
                     </Grid>

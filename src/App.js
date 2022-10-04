@@ -57,6 +57,8 @@ function App() {
   }
   // EDIT:
   const [selectValues, setSelectValues] = useState([]);
+  const [selectTagValue, setSelectTagValue] = useState("");
+
   useEffect(() => {
     console.log("Using useEffect() hook to make a GET request");
     fetch("http://localhost:9292/moves", {
@@ -81,6 +83,13 @@ function App() {
   const handleEditMoveFormSubmit = (e) => {
   }
 
+  const handleSelectTagChange = (e) => {
+    console.log("handleSelectTagChange() function called in App parent component")
+    console.log("e: ", e);
+    console.log("e.target.value: ", e.target.value);
+    setSelectTagValue(e.target.value);
+  }
+
   return (
     <div className="App">
       <NavBar />
@@ -89,7 +98,7 @@ function App() {
         <Route path="/moves" element={<MoveForm 
           handleCreateMoveFormSubmit={handleCreateMoveFormSubmit} createMoveFormData={createMoveFormData} handleCreateMoveChange={handleCreateMoveChange} 
           handleEditMoveFormSubmit={handleEditMoveFormSubmit} editMoveFormData={editMoveFormData} handleEditMoveChange={handleEditMoveChange}
-          selectValues={selectValues}
+          selectValues={selectValues} handleSelectTagChange={handleSelectTagChange} selectTagValue={selectTagValue} 
         />}
         />
         <Route path="/items" element={<ItemForm />}/>
