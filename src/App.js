@@ -56,6 +56,7 @@ function App() {
     });
   }
   // EDIT:
+  const [selectValues, setSelectValues] = useState([]);
   useEffect(() => {
     console.log("Using useEffect() hook to make a GET request");
     fetch("http://localhost:9292/moves", {
@@ -68,6 +69,7 @@ function App() {
     .then((response) => response.json())
     .then((data) => {
       console.log("data: ", data);
+      setSelectValues(data);
     })
   }, [])
   const [editMoveFormData, setEditMoveFormData] = useState([]);
@@ -87,6 +89,7 @@ function App() {
         <Route path="/moves" element={<MoveForm 
           handleCreateMoveFormSubmit={handleCreateMoveFormSubmit} createMoveFormData={createMoveFormData} handleCreateMoveChange={handleCreateMoveChange} 
           handleEditMoveFormSubmit={handleEditMoveFormSubmit} editMoveFormData={editMoveFormData} handleEditMoveChange={handleEditMoveChange}
+          selectValues={selectValues}
         />}
         />
         <Route path="/items" element={<ItemForm />}/>

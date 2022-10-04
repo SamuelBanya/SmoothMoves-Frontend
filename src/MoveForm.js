@@ -7,10 +7,20 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 
-function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateMoveChange, handleEditMoveFormSubmit, editMoveFormData, handleEditMoveChange}) {
-    console.log("\n\ncreateMoveFormData sent down as props from App component to child MoveForm component: ")
-    console.log("createMoveFormData: ", createMoveFormData)
+// TODO:
+// Use 'onChange' for <Select> tag to then call a callback function back up to the parent 'App.js' component which will then pre-populate the 'Pickup Location' and
+// 'Dropoff Location' in the 'Edit Existing Move' portion of the component:
+
+function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateMoveChange, handleEditMoveFormSubmit, editMoveFormData, handleEditMoveChange, selectValues}) {
+    console.log("\n\ncreateMoveFormData sent down as props from App component to child MoveForm component: ");
+    console.log("createMoveFormData: ", createMoveFormData);
     let age = 0;
+
+    console.log("selectValues from MoveForm child component: ", selectValues);
+    let menuItemsArray = selectValues.map(selectValue => <MenuItem value={selectValue["dropoff_location"]}>{selectValue["dropoff_location"]}</MenuItem> );
+
+    console.log("menuItemsArray: ", menuItemsArray);
+
     return (
         <div>
             <h2>Create New Move</h2>
@@ -53,9 +63,7 @@ function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateM
                     label="Age"
                     onChange={handleEditMoveChange}
                     >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        { menuItemsArray }
                     </Select>
                 </FormControl>
                 <br />
