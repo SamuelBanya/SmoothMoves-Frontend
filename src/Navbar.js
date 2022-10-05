@@ -54,27 +54,6 @@ function NavBar() {
                         Items
                     </NavLink>
                 </IconButton>
-                <IconButton>
-                    <NavLink
-                        to="/checklist"
-                    >
-                        Checklist
-                    </NavLink>
-                </IconButton>
-                <IconButton>
-                    <NavLink
-                        to="/email"
-                    >
-                        Email
-                    </NavLink>
-                </IconButton>
-                <IconButton>
-                    <NavLink
-                        to="/export"
-                    >
-                        Export
-                    </NavLink>
-                </IconButton>
                 <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     Smooth Moves
                 </Typography>

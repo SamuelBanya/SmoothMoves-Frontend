@@ -12,14 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 // 'Dropoff Location' in the 'Edit Existing Move' portion of the component:
 
 function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateMoveChange, handleEditMoveFormSubmit, editMoveFormData, handleEditMoveChange, selectValues, handleSelectTagChange, selectTagValue}) {
-    console.log("\n\ncreateMoveFormData sent down as props from App component to child MoveForm component: ");
-    console.log("createMoveFormData: ", createMoveFormData);
-    let age = 0;
-
-    console.log("selectValues from MoveForm child component: ", selectValues);
     let menuItemsArray = selectValues.map(selectValue => <MenuItem key={selectValue["id"]} value={selectValue["id"]}>{selectValue["dropoff_location"]}</MenuItem> );
-
-    console.log("menuItemsArray: ", menuItemsArray);
 
     return (
         <div>
@@ -75,7 +68,7 @@ function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateM
                             name="pickupLocation"
                             label='Pickup Location (ex: "New York, NY")'
                             type="text"
-                            value={editMoveFormData.pickupLocation}
+                            // value={editMoveFormData.pickupLocation}
                             onChange={handleEditMoveChange}
                         />
                     </Grid>
