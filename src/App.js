@@ -8,7 +8,8 @@ import NavBar from "./NavBar"
 import React, { useState, useEffect } from "react";
 
 function App() {
-  // CREATE SECTION:
+  // MOVE COMPONENT SECTION:
+  // CREATE MOVE SECTION:
   const [createMoveFormData, setCreateMoveFormData] = useState({
     pickupLocation: "", 
     dropoffLocation: ""
@@ -41,7 +42,7 @@ function App() {
       // });
     });
   }
-  // EDIT SECTION:
+  // EDIT MOVE SECTION:
   // NOTE: This is to determine the values of the '<Select>' tags:
   const [selectValues, setSelectValues] = useState([]);
   // NOTE: This is to pass down the specific value of the given '<Select>' tag to render it properly:
@@ -50,8 +51,8 @@ function App() {
   // in the 'Edit Existing Move' section:
   // NOTE: This is to fill in data for the 'Edit Existing Move' form data when the '<Select>' tag is selected:
   const [editMoveFormData, setEditMoveFormData] = useState({
-    pickupLocation: "", 
-    dropoffLocation: ""
+    pickup_location: "", 
+    dropoff_location: ""
   });
 
   const handleEditMoveChange = (e) => {
@@ -67,9 +68,17 @@ function App() {
     console.log("e: ", e);
     console.log("e.target.value: ", e.target.value);
     setSelectTagValue(e.target.value);
+    setToggle(!toggle);
   }
 
-  // ITEM SECTION:
+  const handleUpdateMove = (e) => {
+    e.preventDefault();
+    console.log("handleUpdateMove() function called");
+    console.log("editMoveFormData: ")
+    console.log(editMoveFormData ? editMoveFormData : "");
+  }
+
+  // ITEM COMPONENT SECTION:
   const [itemMoveSelectValues, setItemMoveSelectValues] = useState([]);
   const [itemMoveSelectTagValue, setItemMoveSelectTagValue] = useState("");
 
@@ -83,7 +92,9 @@ function App() {
     setItemMoveSelectTagValue(e.target.value);
   }
 
-  // USE EFFECT SECTION FOR ALL SECTIONS:
+  // USE EFFECT SECTION FOR ALL COMPONENTS:
+  const [toggle, setToggle] = useState(false);
+
   useEffect(() => {
     fetch("http://localhost:9292/moves", {
       method: "GET",
@@ -111,7 +122,7 @@ function App() {
     .then((data) => {
       setEditMoveFormData(data.find(element => element["id"] === selectTagValue));
     })
-  });
+  }, [toggle]);
 
   return (
     <div className="App">
@@ -122,7 +133,7 @@ function App() {
           element={<MoveForm 
             handleCreateMoveFormSubmit={handleCreateMoveFormSubmit} createMoveFormData={createMoveFormData} handleCreateMoveChange={handleCreateMoveChange} 
             handleEditMoveFormSubmit={handleEditMoveFormSubmit} editMoveFormData={editMoveFormData} handleEditMoveChange={handleEditMoveChange}
-            selectValues={selectValues} handleSelectTagChange={handleSelectTagChange} selectTagValue={selectTagValue} 
+            selectValues={selectValues} handleSelectTagChange={handleSelectTagChange} selectTagValue={selectTagValue} handleUpdateMove={handleUpdateMove}
           />}
         />
         <Route path="/items" 

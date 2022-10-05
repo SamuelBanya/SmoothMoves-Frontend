@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 // Use 'onChange' for <Select> tag to then call a callback function back up to the parent 'App.js' component which will then pre-populate the 'Pickup Location' and
 // 'Dropoff Location' in the 'Edit Existing Move' portion of the component:
 
-function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateMoveChange, handleEditMoveFormSubmit, editMoveFormData, handleEditMoveChange, selectValues, handleSelectTagChange, selectTagValue}) {
+function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateMoveChange, handleEditMoveFormSubmit, editMoveFormData, handleEditMoveChange, selectValues, handleSelectTagChange, selectTagValue, handleUpdateMove}) {
     let menuItemsArray = selectValues.map(selectValue => <MenuItem key={selectValue["id"]} value={selectValue["id"]}>{selectValue["dropoff_location"]}</MenuItem> );
 
     return (
@@ -68,7 +68,7 @@ function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateM
                             name="pickupLocation"
                             label='Pickup Location (ex: "New York, NY")'
                             type="text"
-                            // value={editMoveFormData.pickupLocation}
+                            value={editMoveFormData ? editMoveFormData.pickup_location : ""}
                             onChange={handleEditMoveChange}
                         />
                     </Grid>
@@ -79,12 +79,12 @@ function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateM
                             name="dropoffLocation"
                             label='Dropoff Location (ex: "Orlando, FL")'
                             type="text"
-                            // value={editMoveFormData.dropoffLocation}
+                            value={editMoveFormData ? editMoveFormData.dropoff_location : ""}
                             onChange={handleEditMoveChange}
                         />
                     </Grid>
                     <br />
-                    <Button variant="contained" color="primary" type="submit">Update</Button>
+                    <Button onClick={handleUpdateMove} variant="contained" color="primary" type="submit">Update</Button>
                     <br />
                     <Button variant="contained" color="primary" type="submit">Delete</Button>
                 </Grid>
