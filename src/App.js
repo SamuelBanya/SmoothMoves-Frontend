@@ -8,11 +8,13 @@ import NavBar from "./NavBar"
 import React, { useState, useEffect } from "react";
 
 function App() {
+  // =============================================
   // MOVE COMPONENT SECTION:
+  // =============================================
   // CREATE MOVE SECTION:
   const [createMoveFormData, setCreateMoveFormData] = useState({
-    pickupLocation: "", 
-    dropoffLocation: ""
+    pickup_location: "", 
+    dropoff_location: ""
   });
 
   const handleCreateMoveChange = (e) => {
@@ -30,7 +32,7 @@ function App() {
         "Content-Type": "application/json",
         "Accept": "application/json",
       },
-      body: JSON.stringify({ "pickup_location": createMoveFormData["pickupLocation"], "dropoff_location": createMoveFormData["dropoffLocation"] }),
+      body: JSON.stringify({ "pickup_location": createMoveFormData["pickup_location"], "dropoff_location": createMoveFormData["dropoff_location"] }),
     })
     .then((response) => response.json())
     .then((data) => { 
@@ -60,9 +62,6 @@ function App() {
     setEditMoveFormData({...editMoveFormData, [e.target.name]: e.target.value});
   }
 
-  const handleEditMoveFormSubmit = (e) => {
-  }
-
   const handleSelectTagChange = (e) => {
     console.log("handleSelectTagChange() function called in App parent component")
     console.log("e: ", e);
@@ -78,7 +77,31 @@ function App() {
     console.log(editMoveFormData ? editMoveFormData : "");
   }
 
+  const handleDeleteMove = (e) => {
+    e.preventDefault();
+    console.log("handleDeleteMove() function called");
+    console.log("editMoveFormData: ")
+    console.log(editMoveFormData ? editMoveFormData : "");
+    // TODO: fetch() request for 'DELETE' action for backend needed
+    // Pass :id value using Active Record methods
+    // Related Docs page:
+    // https://apidock.com/rails/ActiveRecord/Relation/delete
+    fetch(`http://localhost:9292/moves/:${editMoveFormData["id"]}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => { 
+      console.log("data: ", data);
+    });
+  }
+
+  // =============================================
   // ITEM COMPONENT SECTION:
+  // =============================================
   const [itemMoveSelectValues, setItemMoveSelectValues] = useState([]);
   const [itemMoveSelectTagValue, setItemMoveSelectTagValue] = useState("");
 
@@ -92,9 +115,12 @@ function App() {
     setItemMoveSelectTagValue(e.target.value);
   }
 
-  // USE EFFECT SECTION FOR ALL COMPONENTS:
+  // =============================================
+  // USE EFFECT SECTION
+  // =============================================
   const [toggle, setToggle] = useState(false);
 
+  // useEffect() call to set the <Select> tag values for the 'MoveForm' and 'ItemForm' components:
   useEffect(() => {
     fetch("http://localhost:9292/moves", {
       method: "GET",
@@ -110,6 +136,7 @@ function App() {
     })
   }, []);
 
+  // useEffect() call to determine the values to use for the 'editFormData' to prepopulate data on the 'MoveForm' component
   useEffect(() => {
     fetch("http://localhost:9292/moves", {
       method: "GET",
@@ -132,8 +159,9 @@ function App() {
         <Route path="/moves" 
           element={<MoveForm 
             handleCreateMoveFormSubmit={handleCreateMoveFormSubmit} createMoveFormData={createMoveFormData} handleCreateMoveChange={handleCreateMoveChange} 
-            handleEditMoveFormSubmit={handleEditMoveFormSubmit} editMoveFormData={editMoveFormData} handleEditMoveChange={handleEditMoveChange}
+            editMoveFormData={editMoveFormData} handleEditMoveChange={handleEditMoveChange}
             selectValues={selectValues} handleSelectTagChange={handleSelectTagChange} selectTagValue={selectTagValue} handleUpdateMove={handleUpdateMove}
+            handleDeleteMove={handleDeleteMove}
           />}
         />
         <Route path="/items" 

@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 // Use 'onChange' for <Select> tag to then call a callback function back up to the parent 'App.js' component which will then pre-populate the 'Pickup Location' and
 // 'Dropoff Location' in the 'Edit Existing Move' portion of the component:
 
-function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateMoveChange, handleEditMoveFormSubmit, editMoveFormData, handleEditMoveChange, selectValues, handleSelectTagChange, selectTagValue, handleUpdateMove}) {
+function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateMoveChange, editMoveFormData, handleEditMoveChange, selectValues, handleSelectTagChange, selectTagValue, handleUpdateMove, handleDeleteMove}) {
     let menuItemsArray = selectValues.map(selectValue => <MenuItem key={selectValue["id"]} value={selectValue["id"]}>{selectValue["dropoff_location"]}</MenuItem> );
 
     return (
@@ -46,7 +46,7 @@ function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateM
             </form>
             <br />
             <h2>Edit Existing Move</h2>
-            <form onSubmit={handleEditMoveFormSubmit}>
+            <form>
                 <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Select Dropoff Location</InputLabel>
                     <Select
@@ -86,7 +86,7 @@ function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateM
                     <br />
                     <Button onClick={handleUpdateMove} variant="contained" color="primary" type="submit">Update</Button>
                     <br />
-                    <Button variant="contained" color="primary" type="submit">Delete</Button>
+                    <Button onClick={handleDeleteMove} variant="contained" color="primary" type="submit">Delete</Button>
                 </Grid>
             </form>
 
