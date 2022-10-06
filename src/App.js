@@ -62,6 +62,13 @@ function App() {
     setEditMoveFormData({...editMoveFormData, [e.target.name]: e.target.value});
   }
 
+  // NOTE: A big part of this also depends upon the 'useEffect' section at the very bottom
+  // since the useEffect() hook is using all the variables placed before it
+
+  // NOTE: This is important to mention because the 'setSelectValues(data);' statement is
+  // actually set during the useEffect() hook itself
+  // Here, we are using 'selectTagValue' and 'setSelectTagValue' in tandem so that we can
+  // determine the 'id' of the specific element we want to manipulate later for the 'EDIT' section:
   const handleSelectTagChange = (e) => {
     console.log("handleSelectTagChange() function called in App parent component")
     console.log("e: ", e);
@@ -82,12 +89,18 @@ function App() {
     console.log("handleDeleteMove() function called");
     console.log("editMoveFormData: ")
     console.log(editMoveFormData ? editMoveFormData : "");
+    console.log("editMoveFormData.id: ")
+    console.log(editMoveFormData ? editMoveFormData.id : "");
     // TODO: fetch() request for 'DELETE' action for backend needed
     // Pass :id value using Active Record methods
     // Related Docs page:
     // https://apidock.com/rails/ActiveRecord/Relation/delete
     fetch(`http://localhost:9292/moves/${editMoveFormData.id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
     })
     .then((response) => response.json())
     .then((data) => { 
