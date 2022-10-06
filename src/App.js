@@ -86,12 +86,8 @@ function App() {
     // Pass :id value using Active Record methods
     // Related Docs page:
     // https://apidock.com/rails/ActiveRecord/Relation/delete
-    fetch(`http://localhost:9292/moves/:${editMoveFormData["id"]}`, {
+    fetch(`http://localhost:9292/moves/${editMoveFormData.id}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
     })
     .then((response) => response.json())
     .then((data) => { 
@@ -104,8 +100,12 @@ function App() {
   // =============================================
   const [itemMoveSelectValues, setItemMoveSelectValues] = useState([]);
   const [itemMoveSelectTagValue, setItemMoveSelectTagValue] = useState("");
+  const [itemAmount, setItemAmount] = useState(0);
 
-  function handleItemMoveSubmit() {
+  const handleItemSubmit = (e) => {
+    e.preventDefault();
+    console.log("handleItemSubmit() function called");
+    setItemAmount(e.target[0].value);
   }
 
   function handleItemMoveSelectTagChange(e) {
@@ -113,6 +113,10 @@ function App() {
     console.log("e: ", e);
     console.log("e.target.value: ", e.target.value);
     setItemMoveSelectTagValue(e.target.value);
+  }
+
+  const handleCarouselChange = (e) => {
+    console.log("handleCarouselChange() function called");
   }
 
   // =============================================
@@ -166,7 +170,7 @@ function App() {
         />
         <Route path="/items" 
           element={<ItemForm 
-            handleItemMoveSubmit={handleItemMoveSubmit} handleItemMoveSelectTagChange={handleItemMoveSelectTagChange} itemMoveSelectTagValue={itemMoveSelectTagValue} itemMoveSelectValues={itemMoveSelectValues}
+            handleItemSubmit={handleItemSubmit} handleItemMoveSelectTagChange={handleItemMoveSelectTagChange} itemMoveSelectTagValue={itemMoveSelectTagValue} itemMoveSelectValues={itemMoveSelectValues} itemAmount={itemAmount} handleCarouselChange={handleCarouselChange}
           />}
         />
       </Routes>

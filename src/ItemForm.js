@@ -7,9 +7,10 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Carousel from "react-material-ui-carousel";
+import Item from "./Item";
 
 // NOTE: I need to send down the amount of items to iterate through as props to this child component
-function ItemForm({handleItemMoveSubmit, handleItemMoveSelectTagChange, itemMoveSelectTagValue, itemMoveSelectValues}) {
+function ItemForm({handleItemSubmit, handleItemMoveSelectTagChange, itemMoveSelectTagValue, itemMoveSelectValues, itemAmount, handleCarouselChange}) {
     let menuItemsArray = itemMoveSelectValues.map(selectValue => <MenuItem key={selectValue["id"]} value={selectValue["id"]}>{selectValue["dropoff_location"]}</MenuItem> );
     var items = [
         {
@@ -22,6 +23,8 @@ function ItemForm({handleItemMoveSubmit, handleItemMoveSelectTagChange, itemMove
         }
     ]
 
+    console.log("itemAmount from ItemForm child component: ", itemAmount);
+
     // {
     //     items.map( (item, i) => <Item key={i} item={item}/>)
     // }
@@ -30,6 +33,13 @@ function ItemForm({handleItemMoveSubmit, handleItemMoveSelectTagChange, itemMove
     // Create 'Checklist' section
     // Create 'Email' section, which includes 'From' email, and 'To' email for moving company
     // Create 'Export' section to export the results to multiple file formats including Excel based '.xlsx' and '.csv' file formats
+
+    let itemsCarouselArray = [];
+    for (let i = 0; i < itemAmount; i++) {
+        console.log("i: ", i);
+        itemsCarouselArray.push(<Item key={i} id={i}/>)
+    }
+    console.log("itemsCarouselArray: ", itemsCarouselArray);
 
     return (
         <div>
@@ -48,14 +58,9 @@ function ItemForm({handleItemMoveSubmit, handleItemMoveSelectTagChange, itemMove
                     </Select>
                 </FormControl>
             </form>
-            // NOTE: I need to iterate through the amount of items
-            // that the user wants to enter, and therefore ask
-            // them the following details for each item:
-            // Height, width, length (inches, later converted to square feet)
-            // Weight (lbs, pounds)
-            <h2>Items To Move</h2>
+            <h2>Amount Of Items To Move</h2>
             <br />
-            <form onSubmit={handleItemMoveSubmit}>
+            <form onSubmit={handleItemSubmit}>
                 <Grid container alignItems="center" justify="center" direction="column">
                     <Grid item>
                         <TextField 
@@ -69,6 +74,11 @@ function ItemForm({handleItemMoveSubmit, handleItemMoveSelectTagChange, itemMove
                     <Button variant="contained" color="primary" type="submit">Enter</Button>
                 </Grid>
             </form>
+            { itemsCarouselArray.length > 1 ? <h2>Enter Item Info</h2> : <h2></h2>}
+            <Carousel interval={null} onChange={handleCarouselChange}>
+                {itemsCarouselArray}
+            </Carousel>
+            { itemsCarouselArray.length > 1 ? <Button variant="contained" color="primary" type="submit">Submit All Items</Button> : null}
             <h2>Checklist</h2>
             <p>This area will serve as the checklist of all items provided</p>
             <h2>Export</h2>

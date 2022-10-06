@@ -21,8 +21,8 @@ function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateM
                 <Grid container alignItems="center" justify="center" direction="column">
                     <Grid item>
                         <TextField 
-                            id="pickupLocation"
-                            name="pickupLocation"
+                            id="pickup_location"
+                            name="pickup_location"
                             label='Pickup Location (ex: "New York, NY")'
                             type="text"
                             value={createMoveFormData.pickupLocation}
@@ -32,8 +32,8 @@ function MoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateM
                     <br />
                     <Grid item>
                         <TextField 
-                            id="dropoffLocation"
-                            name="dropoffLocation"
+                            id="dropoff_location"
+                            name="dropoff_location"
                             label='Dropoff Location (ex: "Orlando, FL")'
                             type="text"
                             value={createMoveFormData.dropoffLocation}
