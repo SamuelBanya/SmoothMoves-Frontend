@@ -78,6 +78,9 @@ function ItemForm({handleItemSubmit, handleItemMoveSelectTagChange, itemMoveSele
             <Carousel interval={null} onChange={handleCarouselChange}>
                 {itemsCarouselArray}
             </Carousel>
+            <br />
+            <br />
+            <br />
             { itemsCarouselArray.length > 1 ? <Button variant="contained" color="primary" type="submit">Submit All Items</Button> : null}
             <h2>Checklist</h2>
             <p>This area will serve as the checklist of all items provided</p>
