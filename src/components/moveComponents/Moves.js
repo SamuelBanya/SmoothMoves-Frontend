@@ -21,7 +21,7 @@ function Moves() {
     return (
         <div>
             <CreateMoveForm />
-            <EditMoveForm moves={moves} />
+            <EditMoveForm moves={moves} setMoves={setMoves} />
         </div>
     )
 }
