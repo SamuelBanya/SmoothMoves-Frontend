@@ -36,9 +36,6 @@ function EditMoveForm({ moves }) {
     console.log("e: ", e);
     console.log("e.target.value: ", e.target.value);
     setSelectTagValue(e.target.value);
-    // setToggle(!toggle);
-    let pickupLocationTag = document.getElementById("#edit_pickup_location");
-    console.log("pickupLocationTag: ", pickupLocationTag);
     setEditMoveFormData(moves.find(element => element["id"] === e.target.value));
     }
 
@@ -50,24 +47,24 @@ function EditMoveForm({ moves }) {
     }
 
     const handleDeleteMove = (e) => {
-    e.preventDefault();
-    console.log("handleDeleteMove() function called");
-    console.log("editMoveFormData: ")
-    console.log(editMoveFormData ? editMoveFormData : "");
-    console.log("editMoveFormData.id: ")
-    console.log(editMoveFormData ? editMoveFormData.id : "");
+        e.preventDefault();
+        console.log("handleDeleteMove() function called");
+        console.log("editMoveFormData: ")
+        console.log(editMoveFormData ? editMoveFormData : "");
+        console.log("editMoveFormData.id: ")
+        console.log(editMoveFormData ? editMoveFormData.id : "");
 
-    fetch(`http://localhost:9292/moves/${editMoveFormData.id}`, {
-        method: "DELETE",
-        headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        },
-    })
-    .then((response) => response.json())
-    .then((data) => { 
-        console.log("data: ", data);
-    });
+        fetch(`http://localhost:9292/moves/${editMoveFormData.id}`, {
+            method: "DELETE",
+            headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            },
+        })
+        .then((response) => response.json())
+        .then((data) => { 
+            console.log("data: ", data);
+        });
     }
 
     return (
