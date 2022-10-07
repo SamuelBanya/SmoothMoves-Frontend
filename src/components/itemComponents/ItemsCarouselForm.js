@@ -7,11 +7,19 @@ function ItemsCarouselForm({ itemAmount }) {
     function handleCarouselChange() {
         console.log("handleCarouselChange() function called");
     }
+
+    const handleItemsCarouselFormSubmit = (e) => {
+        console.log("handleItemsCarouselFormSubmit() function called");
+        console.log("e: ", e);
+    }
+
     let itemsCarouselArray = [];
+
     for (let i = 0; i < itemAmount; i++) {
         console.log("i: ", i);
         itemsCarouselArray.push(<ItemCard key={i} id={i}/>)
     }
+
     console.log("itemsCarouselArray: ", itemsCarouselArray);
 
     return (
@@ -23,7 +31,7 @@ function ItemsCarouselForm({ itemAmount }) {
             <br />
             <br />
             <br />
-            { itemsCarouselArray.length > 1 ? <Button variant="contained" color="primary" type="submit">Submit All Items</Button> : null}
+            { itemsCarouselArray.length > 1 ? <Button variant="contained" color="primary" type="submit" onClick={handleItemsCarouselFormSubmit}>Submit All Items</Button> : null}
         </div>
     )
 }

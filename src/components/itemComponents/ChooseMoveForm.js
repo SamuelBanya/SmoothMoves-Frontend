@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -8,7 +8,16 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Carousel from "react-material-ui-carousel";
 
-function ChooseMoveForm({ itemMoveSelectTagValue, handleItemMoveSelectTagChange, menuItemsArray }) {
+function ChooseMoveForm({ menuItemsArray }) {
+
+    const [itemMoveSelectTagValue, setItemMoveSelectTagValue] = useState("");
+  
+    function handleItemMoveSelectTagChange(e) {
+      console.log("handleItemMoveSelectTagChange() function called in ChooseMoveForm child component")
+      console.log("e: ", e);
+      console.log("e.target.value: ", e.target.value);
+      setItemMoveSelectTagValue(e.target.value);
+    }
     return (
         <div>
             <h2>Choose Move</h2>
