@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -7,10 +7,8 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 
-function EditMoveForm({ editMoveFormData, handleEditMoveChange, moves, handleSelectTagChange, selectTagValue, handleUpdateMove, handleDeleteMove }) {
-    // NOTE: This is to determine the values of the '<Select>' tags:
-    // const [selectValues, setSelectValues] = useState([]);
-    const [moves, setMoves] = useState([]);
+function EditMoveForm({ moves }) {
+    let menuItemsArray = moves.map(move => <MenuItem key={move["id"]} value={move["id"]}>{move["dropoff_location"]}</MenuItem> );
     // NOTE: This is to pass down the specific value of the given '<Select>' tag to render it properly:
     const [selectTagValue, setSelectTagValue] = useState("");
     // NOTE: This is to provide the specific element value so that the related 'pickupLocation' and 'dropoffLocation' values can be displayed properly

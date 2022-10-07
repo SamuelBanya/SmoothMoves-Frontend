@@ -1,7 +1,12 @@
 import React from "react";
 import ItemCard from "./ItemCard";
+import Carousel from "react-material-ui-carousel";
+import Button from "@mui/material/Button";
 
-function ItemsCarouselForm() {
+function ItemsCarouselForm({ itemAmount }) {
+    function handleCarouselChange() {
+        console.log("handleCarouselChange() function called");
+    }
     let itemsCarouselArray = [];
     for (let i = 0; i < itemAmount; i++) {
         console.log("i: ", i);

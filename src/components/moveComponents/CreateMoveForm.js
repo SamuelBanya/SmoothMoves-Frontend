@@ -1,13 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Select from "@mui/material/Select";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 
-function CreateMoveForm({handleCreateMoveFormSubmit, createMoveFormData, handleCreateMoveChange})
+function CreateMoveForm()
 {
     const [createMoveFormData, setCreateMoveFormData] = useState({
         pickup_location: "", 
