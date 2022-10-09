@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -10,6 +10,14 @@ import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 
 function ItemCard({id}) {
+    const [itemFormData, setItemFormData] = useState({
+        name: "",
+        length: 0, 
+        width: 0,
+        height: 0,
+        weight: 0
+    });
+
     return (
         <div>
             <h2>Item # {id + 1}</h2>
@@ -25,16 +33,6 @@ function ItemCard({id}) {
                         type="string"
                     />
                 </Grid>
-                <br />
-                <Box sx={{ minWidth: 120 }}>
-                    <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Item Type</InputLabel>
-                        <NativeSelect>
-                            <option value={"loose"}>Loose</option>
-                            <option value={"boxed"}>Boxed</option>
-                        </NativeSelect>
-                    </FormControl>
-                </Box>
                 <br />
                 <Grid item>
                     <TextField 
