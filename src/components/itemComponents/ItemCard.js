@@ -3,7 +3,32 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-function ItemCard({ id, itemFormData, handleItemFormChange}) {
+function ItemCard({ id }) {
+    // TODO:
+    // Biggest thing I need to figure out how to do is to aggregate every individual instance of the 
+    // 'itemFormData' for each of these 'ItemCard' components within the parent 'ItemsForm' component
+    // so that I can make the 'POST' requests accordingly:
+    const [itemFormData, setItemFormData] = useState({
+        name: "",
+        length: 0, 
+        width: 0,
+        height: 0,
+        weight: 0
+    });
+
+    function handleItemFormChange(e) {
+        const name = e.target.name;
+        let value = e.target.value;
+        console.log("handleItemFormChange() function called in parent ItemsForm component: ")
+        console.log("name: ", name);
+        console.log("value: ", value);
+
+        setItemFormData({
+            ...itemFormData,
+            [name]: value,
+        });
+    }
+
     return (
         <div>
             <h2>Item # {id + 1}</h2>

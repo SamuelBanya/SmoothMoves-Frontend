@@ -52,26 +52,27 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         }
     }
 
-    const [itemFormData, setItemFormData] = useState({
-        name: "",
-        length: 0, 
-        width: 0,
-        height: 0,
-        weight: 0
-    });
+    // LATEST REVISION:
+    // const [itemFormData, setItemFormData] = useState({
+    //     name: "",
+    //     length: 0, 
+    //     width: 0,
+    //     height: 0,
+    //     weight: 0
+    // });
 
-    function handleItemFormChange(e) {
-        const name = e.target.name;
-        let value = e.target.value;
-        console.log("handleItemFormChange() function called in parent ItemsForm component: ")
-        console.log("name: ", name);
-        console.log("value: ", value);
+    // function handleItemFormChange(e) {
+    //     const name = e.target.name;
+    //     let value = e.target.value;
+    //     console.log("handleItemFormChange() function called in parent ItemsForm component: ")
+    //     console.log("name: ", name);
+    //     console.log("value: ", value);
 
-        setItemFormData({
-            ...itemFormData,
-            [name]: value,
-        });
-    }
+    //     setItemFormData({
+    //         ...itemFormData,
+    //         [name]: value,
+    //     });
+    // }
 
     // Create array to render items based carousel on screen:
     let itemsCarouselArray = [];
@@ -79,7 +80,7 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
     // NOTE: This is where 'ItemCard' child component is being used for reference:
     for (let i = 0; i < itemAmount; i++) {
         console.log("i: ", i);
-        itemsCarouselArray.push(<ItemCard key={i} id={i} itemFormData={itemFormData} handleItemFormChange={handleItemFormChange} />)
+        itemsCarouselArray.push(<ItemCard key={i} id={i} />)
     }
 
     console.log("itemsCarouselArray: ", itemsCarouselArray);
