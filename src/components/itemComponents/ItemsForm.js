@@ -9,95 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
-
-function ItemCard({ id }) {
-    const [itemFormData, setItemFormData] = useState({
-        name: "",
-        length: 0, 
-        width: 0,
-        height: 0,
-        weight: 0
-    });
-
-    function handleItemFormChange(e) {
-        const name = e.target.name;
-        let value = e.target.value;
-        console.log("handleItemFormChange() function called in ItemCard child component: ")
-        console.log("name: ", name);
-        console.log("value: ", value);
-
-        setItemFormData({
-            ...itemFormData,
-            [name]: value,
-        });
-    }
-
-    return (
-        <div>
-            <h2>Item # {id + 1}</h2>
-            <Button variant="contained" color="primary" type="submit">Delete</Button>
-            <br />
-            <br />
-            <Grid container alignItems="center" justify="center" direction="column">
-                <Grid item>
-                    <TextField 
-                        id="name"
-                        name="name"
-                        label="Name"
-                        type="string"
-                        onChange={handleItemFormChange}
-                        value={itemFormData.name}
-                    />
-                </Grid>
-                <br />
-                <Grid item>
-                    <TextField 
-                        id="length"
-                        name="length"
-                        label="Length (in.)"
-                        type="number"
-                        onChange={handleItemFormChange}
-                        value={itemFormData.length}
-                    />
-                </Grid>
-                <br />
-                <Grid item>
-                    <TextField 
-                        id="width"
-                        name="width"
-                        label="Width (in.)"
-                        type="number"
-                        onChange={handleItemFormChange}
-                        value={itemFormData.width}
-                    />
-                </Grid>
-                <br />
-                <Grid item>
-                    <TextField 
-                        id="height"
-                        name="height"
-                        label="Height (in.)"
-                        type="number"
-                        onChange={handleItemFormChange}
-                        value={itemFormData.height}
-                    />
-                </Grid>
-                <br />
-                <Grid item>
-                    <TextField 
-                        id="weight"
-                        name="weight"
-                        label="Weight (lbs.)"
-                        type="number"
-                        onChange={handleItemFormChange}
-                        value={itemFormData.weight}
-                    />
-                </Grid>
-                <br />
-            </Grid>
-        </div>
-    )
-}
+import ItemCard from "./ItemCard";
 
 function ItemsForm({ moves, itemMoveSelectTagValue }) {
     const [itemAmount, setItemAmount] = useState(0);
@@ -140,11 +52,34 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         }
     }
 
+    const [itemFormData, setItemFormData] = useState({
+        name: "",
+        length: 0, 
+        width: 0,
+        height: 0,
+        weight: 0
+    });
+
+    function handleItemFormChange(e) {
+        const name = e.target.name;
+        let value = e.target.value;
+        console.log("handleItemFormChange() function called in parent ItemsForm component: ")
+        console.log("name: ", name);
+        console.log("value: ", value);
+
+        setItemFormData({
+            ...itemFormData,
+            [name]: value,
+        });
+    }
+
+    // Create array to render items based carousel on screen:
     let itemsCarouselArray = [];
 
+    // NOTE: This is where 'ItemCard' child component is being used for reference:
     for (let i = 0; i < itemAmount; i++) {
         console.log("i: ", i);
-        itemsCarouselArray.push(<ItemCard key={i} id={i} />)
+        itemsCarouselArray.push(<ItemCard key={i} id={i} itemFormData={itemFormData} handleItemFormChange={handleItemFormChange} />)
     }
 
     console.log("itemsCarouselArray: ", itemsCarouselArray);
