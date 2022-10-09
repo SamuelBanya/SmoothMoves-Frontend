@@ -3,12 +3,6 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Carousel from "react-material-ui-carousel";
-import Select from "@mui/material/Select";
-import NativeSelect from "@mui/material/NativeSelect"
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Box from "@mui/material/Box";
 import ItemCard from "./ItemCard";
 
 function ItemsForm({ moves, itemMoveSelectTagValue }) {
@@ -18,6 +12,18 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
       e.preventDefault();
       console.log("handleItemSubmit() function called");
       setItemAmount(e.target[0].value);
+    }
+
+    // TODO: NOTE: This array idea is not working unfortunately:
+    let totalItemFormData = [];
+
+    // NOTE: This is my attempt to aggregate the form data from the multiple child 'ItemCard' components:
+    function collectItemFormData(itemFormData) {
+        console.log("collectItemFormData within parent ItemsForm component: ");
+        console.log("itemFormData: ", itemFormData);
+        // TODO: NOTE: This is only adding the SINGLE 'itemFormData' for a single 'ItemCard' child component's form data
+        totalItemFormData.push(itemFormData);
+        console.log("totalItemFormData from parent ItemsForm component: ", totalItemFormData);
     }
 
     const handleItemsCarouselFormSubmit = (e) => {
@@ -52,35 +58,12 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         }
     }
 
-    // LATEST REVISION:
-    // const [itemFormData, setItemFormData] = useState({
-    //     name: "",
-    //     length: 0, 
-    //     width: 0,
-    //     height: 0,
-    //     weight: 0
-    // });
-
-    // function handleItemFormChange(e) {
-    //     const name = e.target.name;
-    //     let value = e.target.value;
-    //     console.log("handleItemFormChange() function called in parent ItemsForm component: ")
-    //     console.log("name: ", name);
-    //     console.log("value: ", value);
-
-    //     setItemFormData({
-    //         ...itemFormData,
-    //         [name]: value,
-    //     });
-    // }
-
     // Create array to render items based carousel on screen:
     let itemsCarouselArray = [];
 
     // NOTE: This is where 'ItemCard' child component is being used for reference:
     for (let i = 0; i < itemAmount; i++) {
-        console.log("i: ", i);
-        itemsCarouselArray.push(<ItemCard key={i} id={i} />)
+        itemsCarouselArray.push(<ItemCard key={i} id={i} collectItemFormData={collectItemFormData}/>)
     }
 
     console.log("itemsCarouselArray: ", itemsCarouselArray);

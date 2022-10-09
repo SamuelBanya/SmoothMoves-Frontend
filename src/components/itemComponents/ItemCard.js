@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-function ItemCard({ id }) {
+function ItemCard({ id, collectItemFormData }) {
     // TODO:
     // Biggest thing I need to figure out how to do is to aggregate every individual instance of the 
     // 'itemFormData' for each of these 'ItemCard' components within the parent 'ItemsForm' component
@@ -19,7 +19,7 @@ function ItemCard({ id }) {
     function handleItemFormChange(e) {
         const name = e.target.name;
         let value = e.target.value;
-        console.log("handleItemFormChange() function called in parent ItemsForm component: ")
+        console.log("handleItemFormChange() function called in child ItemCard component: ")
         console.log("name: ", name);
         console.log("value: ", value);
 
@@ -27,6 +27,13 @@ function ItemCard({ id }) {
             ...itemFormData,
             [name]: value,
         });
+
+        // TODO:
+        // NOTE: I believe this is exactly where I need to call a callback function to the parent
+        // to somehow aggregate the ItemCard child component instance's 'itemFormData'
+
+        collectItemFormData(itemFormData);
+        console.log("collectItemFormData() function called in child ItemCard component");
     }
 
     return (
@@ -41,7 +48,7 @@ function ItemCard({ id }) {
                         id="name"
                         name="name"
                         label="Name"
-                        type="string"
+                        type="text"
                         onChange={handleItemFormChange}
                         value={itemFormData.name}
                     />
