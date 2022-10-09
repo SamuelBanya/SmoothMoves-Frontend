@@ -36,7 +36,7 @@ function Items() {
             <ChooseMoveForm 
               menuItemsArray={menuItemsArray} handleItemMoveSelectTagChange={handleItemMoveSelectTagChange} itemMoveSelectTagValue={itemMoveSelectTagValue}
             />
-            <ItemsForm itemMoveSelectTagValue={itemMoveSelectTagValue} />
+            <ItemsForm moves={moves} itemMoveSelectTagValue={itemMoveSelectTagValue} />
         </div>
     )
 }
