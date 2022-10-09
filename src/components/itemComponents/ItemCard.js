@@ -2,13 +2,6 @@ import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Carousel from "react-material-ui-carousel";
-import Select from "@mui/material/Select";
-import NativeSelect from "@mui/material/NativeSelect"
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Box from "@mui/material/Box";
 
 function ItemCard({ id, itemFormData, handleItemFormChange}) {
     return (
