@@ -99,10 +99,13 @@ function ItemCard({ id }) {
     )
 }
 
-function ItemsCarouselForm({ moves, itemAmount, itemMoveSelectTagValue }) {
-
-    function handleCarouselChange() {
-        console.log("handleCarouselChange() function called");
+function ItemsForm({ moves, itemMoveSelectTagValue }) {
+    const [itemAmount, setItemAmount] = useState(0);
+  
+    const handleItemSubmit = (e) => {
+      e.preventDefault();
+      console.log("handleItemSubmit() function called");
+      setItemAmount(e.target[0].value);
     }
 
     const handleItemsCarouselFormSubmit = (e) => {
@@ -141,33 +144,10 @@ function ItemsCarouselForm({ moves, itemAmount, itemMoveSelectTagValue }) {
 
     for (let i = 0; i < itemAmount; i++) {
         console.log("i: ", i);
-        itemsCarouselArray.push(<ItemCard key={i} id={i}/>)
+        itemsCarouselArray.push(<ItemCard key={i} id={i} />)
     }
 
     console.log("itemsCarouselArray: ", itemsCarouselArray);
-
-    return (
-        <div>
-            { itemsCarouselArray.length > 1 ? <h2>Enter Item Info</h2> : <h2></h2>}
-            <Carousel interval={null} onChange={handleCarouselChange}>
-                {itemsCarouselArray}
-            </Carousel>
-            <br />
-            <br />
-            <br />
-            { itemsCarouselArray.length > 0 ? <Button variant="contained" color="primary" type="submit" onClick={handleItemsCarouselFormSubmit}>Submit All Items</Button> : null}
-        </div>
-    )
-}
-
-function ItemsForm({ moves, itemMoveSelectTagValue }) {
-    const [itemAmount, setItemAmount] = useState(0);
-  
-    const handleItemSubmit = (e) => {
-      e.preventDefault();
-      console.log("handleItemSubmit() function called");
-      setItemAmount(e.target[0].value);
-    }
 
     return (
         <div>
@@ -187,7 +167,14 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
                     <Button variant="contained" color="primary" type="submit">Enter</Button>
                 </Grid>
             </form>
-            <ItemsCarouselForm moves={moves} itemAmount={itemAmount} itemMoveSelectTagValue={itemMoveSelectTagValue} />
+            { itemsCarouselArray.length > 1 ? <h2>Enter Item Info</h2> : <h2></h2>}
+            <Carousel interval={null}>
+                {itemsCarouselArray}
+            </Carousel>
+            <br />
+            <br />
+            <br />
+            { itemsCarouselArray.length > 0 ? <Button variant="contained" color="primary" type="submit" onClick={handleItemsCarouselFormSubmit}>Submit All Items</Button> : null}
         </div>
     )
 }
