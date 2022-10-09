@@ -18,6 +18,19 @@ function ItemCard({id}) {
         weight: 0
     });
 
+    function handleItemFormChange(e) {
+        const name = e.target.name;
+        let value = e.target.value;
+        console.log("handleItemFormChange() function called in ItemCard child component: ")
+        console.log("name: ", name);
+        console.log("value: ", value);
+
+        setItemFormData({
+            ...itemFormData,
+            [name]: value,
+        });
+    }
+
     return (
         <div>
             <h2>Item # {id + 1}</h2>
@@ -31,6 +44,8 @@ function ItemCard({id}) {
                         name="name"
                         label="Name"
                         type="string"
+                        onChange={handleItemFormChange}
+                        value={itemFormData.name}
                     />
                 </Grid>
                 <br />
@@ -40,6 +55,8 @@ function ItemCard({id}) {
                         name="length"
                         label="Length (in.)"
                         type="number"
+                        onChange={handleItemFormChange}
+                        value={itemFormData.length}
                     />
                 </Grid>
                 <br />
@@ -49,6 +66,8 @@ function ItemCard({id}) {
                         name="width"
                         label="Width (in.)"
                         type="number"
+                        onChange={handleItemFormChange}
+                        value={itemFormData.width}
                     />
                 </Grid>
                 <br />
@@ -58,6 +77,8 @@ function ItemCard({id}) {
                         name="height"
                         label="Height (in.)"
                         type="number"
+                        onChange={handleItemFormChange}
+                        value={itemFormData.height}
                     />
                 </Grid>
                 <br />
@@ -67,6 +88,8 @@ function ItemCard({id}) {
                         name="weight"
                         label="Weight (lbs.)"
                         type="number"
+                        onChange={handleItemFormChange}
+                        value={itemFormData.weight}
                     />
                 </Grid>
                 <br />
