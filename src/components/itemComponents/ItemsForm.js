@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import ItemsCarouselForm from "./ItemsCarouselForm";
 
-function ItemsForm() {
+function ItemsForm({ itemMoveSelectTagValue }) {
     const [itemAmount, setItemAmount] = useState(0);
   
     const handleItemSubmit = (e) => {
@@ -12,6 +12,7 @@ function ItemsForm() {
       console.log("handleItemSubmit() function called");
       setItemAmount(e.target[0].value);
     }
+
     return (
         <div>
             <h2>Amount Of Items To Move</h2>
@@ -30,7 +31,7 @@ function ItemsForm() {
                     <Button variant="contained" color="primary" type="submit">Enter</Button>
                 </Grid>
             </form>
-            <ItemsCarouselForm itemAmount={itemAmount}/>
+            <ItemsCarouselForm itemAmount={itemAmount} itemMoveSelectTagValue={itemMoveSelectTagValue} />
         </div>
     )
 }

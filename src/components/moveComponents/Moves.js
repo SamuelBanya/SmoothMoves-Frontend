@@ -16,7 +16,7 @@ function Moves() {
         .then((data) => {
           setMoves(data);
         })
-      }, []);
+      }, [moves]);
 
     return (
         <div>

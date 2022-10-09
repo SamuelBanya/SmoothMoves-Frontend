@@ -7,6 +7,18 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 
+// TODO:
+// Related Material UI Error received upon deleting an element:
+
+// react_devtools_backend.js:4026 MUI: You have provided an out-of-range value `47` for the select component.
+// Consider providing a value that matches one of the available options or ''.
+// The available values are `45`.
+
+// One of three portions is affected by the above error present include the following:
+// 1. selectTagValue
+// 2. handleSelectTagChange
+// 3. renderMovesArray
+
 function EditMoveForm({ moves, setMoves }) {
     // NOTE: This is to pass down the specific value of the given '<Select>' tag to render it properly:
     const [selectTagValue, setSelectTagValue] = useState("");
@@ -18,13 +30,16 @@ function EditMoveForm({ moves, setMoves }) {
     dropoff_location: ""
     });
 
-    const [tagMoves, setTagMoves] = useState([]);
+    // NOTE: 'moveTags' is the child component version of 'moves' so that I can manipulate what's present on the screen after an 'EDIT' or 'DELETE'
+    // action has been made:
+    const [moveOptions, setMoveOptions] = useState([]);
 
     useEffect(() => {
-        setTagMoves(moves);
+        setMoveOptions(moves);
+        // 'let MenuItemsArray' needs to happen here as a state variable
     }, [moves]);
 
-    let menuItemsArray = tagMoves.map(move => <MenuItem key={move["id"]} value={move["id"]}>{move["dropoff_location"]}</MenuItem> );
+    let renderMovesArray = moveOptions.map(move => <MenuItem key={move["id"]} value={move["id"]}>{move["dropoff_location"]}</MenuItem> );
 
     const handleEditMoveChange = (e) => {
         console.log("handleEditMoveChange() function called in parent App component");
@@ -36,6 +51,9 @@ function EditMoveForm({ moves, setMoves }) {
         console.log("e: ", e);
         console.log("e.target.value: ", e.target.value);
         setSelectTagValue(e.target.value);
+        // TODO:
+        // This is the problematic portion that is potentially causing issues
+        // NOTE: This has to be set to a blank value if the current value cannot be found
         setEditMoveFormData(moves.find(element => element["id"] === e.target.value));
     }
 
@@ -79,6 +97,8 @@ function EditMoveForm({ moves, setMoves }) {
         .then((response) => response.json())
         .then((data) => { 
             console.log("data: ", data);
+            const filteredMoves = moves.filter((move) => move.id !== data.id ? data : move);
+            setMoves(filteredMoves);
         });
     }
 
@@ -95,7 +115,7 @@ function EditMoveForm({ moves, setMoves }) {
                         label="Select Dropoff Location"
                         onChange={handleSelectTagChange}
                     >
-                        { menuItemsArray }
+                        { renderMovesArray }
                     </Select>
                 </FormControl>
                 <br />

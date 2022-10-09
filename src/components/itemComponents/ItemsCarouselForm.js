@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import ItemCard from "./ItemCard";
 import Carousel from "react-material-ui-carousel";
 import Button from "@mui/material/Button";
 
-function ItemsCarouselForm({ itemAmount }) {
+function ItemsCarouselForm({ itemAmount, itemMoveSelectTagValue }) {
+    const [itemFormData, setItemFormData] = useState([]);
+
     function handleCarouselChange() {
         console.log("handleCarouselChange() function called");
     }
@@ -11,6 +13,12 @@ function ItemsCarouselForm({ itemAmount }) {
     const handleItemsCarouselFormSubmit = (e) => {
         console.log("handleItemsCarouselFormSubmit() function called");
         console.log("e: ", e);
+        console.log("itemsCarouselArray: ", itemsCarouselArray);
+        console.log("itemMoveSelectTagValue from child ItemsCarouselForm component: ", itemMoveSelectTagValue);
+        // Make a 'GET' fetch() request to the '/moves/:id' API endpoint so that you can determine
+        // what items are associated with the current 'move' instance
+        // Then, make a fetch() request to the "/moves/:id/items" endpoint
+        // so that you can update the specific items associated with the 'move' instance accordingly
     }
 
     let itemsCarouselArray = [];
@@ -31,7 +39,7 @@ function ItemsCarouselForm({ itemAmount }) {
             <br />
             <br />
             <br />
-            { itemsCarouselArray.length > 1 ? <Button variant="contained" color="primary" type="submit" onClick={handleItemsCarouselFormSubmit}>Submit All Items</Button> : null}
+            { itemsCarouselArray.length > 0 ? <Button variant="contained" color="primary" type="submit" onClick={handleItemsCarouselFormSubmit}>Submit All Items</Button> : null}
         </div>
     )
 }
