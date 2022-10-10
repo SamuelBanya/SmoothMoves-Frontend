@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-function ItemCard({ id, collectItemFormData }) {
+function ItemCard({ id, reducer }) {
     // TODO:
     // Biggest thing I need to figure out how to do is to aggregate every individual instance of the 
     // 'itemFormData' for each of these 'ItemCard' components within the parent 'ItemsForm' component
     // so that I can make the 'POST' requests accordingly:
+
+    // NOTE: The quicker and dirtier way to handle this would be to just use some kind of callback function
+    // that would aggregate each and every 'ItemCard' instance into an array of objects, each of which
+    // would get updated individually
+
+    // NOTE: This is my attempt to use the 'useReducer()' React hook in this scenario, which I have no idea
+    // how to actually use in this scenario:
+    const [state, dispatch] = useReducer(reducer, {
+        name: "",
+        length: 0, 
+        width: 0,
+        height: 0,
+        weight: 0
+    })
+
     const [itemFormData, setItemFormData] = useState({
         name: "",
         length: 0, 
@@ -28,12 +43,30 @@ function ItemCard({ id, collectItemFormData }) {
             [name]: value,
         });
 
-        // TODO:
-        // NOTE: I believe this is exactly where I need to call a callback function to the parent
-        // to somehow aggregate the ItemCard child component instance's 'itemFormData'
+        dispatch({ 
+            type: "changed_name",
+            nextName: e.target.value
+        });
 
-        collectItemFormData(itemFormData);
-        console.log("collectItemFormData() function called in child ItemCard component");
+        dispatch({ 
+            type: "changed_length",
+            nextName: e.target.value
+        });
+
+        dispatch({ 
+            type: "changed_width",
+            nextName: e.target.value
+        });
+
+        dispatch({ 
+            type: "changed_height",
+            nextName: e.target.value
+        });
+
+        dispatch({ 
+            type: "changed_weight",
+            nextName: e.target.value
+        });
     }
 
     return (

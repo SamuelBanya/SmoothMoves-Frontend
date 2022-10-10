@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -14,17 +14,48 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
       setItemAmount(e.target[0].value);
     }
 
-    // TODO: NOTE: This array idea is not working unfortunately:
-    let totalItemFormData = [];
+    // TODO: Use the 'useReducer' hook to create a reduce to manage multiple state values into a single
+    // function called a 'reducer' via these suggested steps:
+    // 1. Call useReducer in the component that holds all of the carousel panels
+    // 2. Pass its state and dispatch results into the carousel panels.
+    // 3. Then, have the carousel panels update the reducer by calling dispatch.
+    // 4. When the user is done, all of your state will have been populated in one place.
 
     // NOTE: This is my attempt to aggregate the form data from the multiple child 'ItemCard' components:
-    function collectItemFormData(itemFormData) {
-        console.log("collectItemFormData within parent ItemsForm component: ");
-        console.log("itemFormData: ", itemFormData);
-        // TODO: NOTE: This is only adding the SINGLE 'itemFormData' for a single 'ItemCard' child component's form data
-        totalItemFormData.push(itemFormData);
-        console.log("totalItemFormData from parent ItemsForm component: ", totalItemFormData);
+    function reducer(state, action) {
+        switch (action.type) {
+            case "changed_name": {
+                return {
+                    name: action.nextName,
+                };
+            }
+            case "changed_length": {
+                return {
+                    name: action.nextLength,
+                };
+            }
+            case "changed_width": {
+                return {
+                    name: action.nextWidth,
+                };
+            }
+            case "changed_height": {
+                return {
+                    name: action.nextHeight,
+                };
+            }
+            case "changed_weight": {
+                return {
+                    name: action.nextWeight,
+                };
+            }
+        }
+        throw Error("Unknown action: " + action.type);
     }
+    // function collectItemFormData(itemFormData) {
+    //     console.log("collectItemFormData within parent ItemsForm component: ");
+    //     console.log("itemFormData: ", itemFormData);
+    // }
 
     const handleItemsCarouselFormSubmit = (e) => {
         console.log("handleItemsCarouselFormSubmit() function called");
@@ -63,7 +94,7 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
 
     // NOTE: This is where 'ItemCard' child component is being used for reference:
     for (let i = 0; i < itemAmount; i++) {
-        itemsCarouselArray.push(<ItemCard key={i} id={i} collectItemFormData={collectItemFormData}/>)
+        itemsCarouselArray.push(<ItemCard key={i} id={i} reducer={reducer} />)
     }
 
     console.log("itemsCarouselArray: ", itemsCarouselArray);
