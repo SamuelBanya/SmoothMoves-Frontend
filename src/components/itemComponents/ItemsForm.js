@@ -97,8 +97,6 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         itemsCarouselArray.push(<ItemCard key={i} id={i} reducer={reducer} />)
     }
 
-    console.log("itemsCarouselArray: ", itemsCarouselArray);
-
     return (
         <div>
             <h2>Amount Of Items To Move</h2>
@@ -114,17 +112,28 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
                         />
                     </Grid>
                     <br />
-                    <Button variant="contained" color="primary" type="submit">Enter</Button>
+                    <Button style={{ backgroundColor: "blueviolet" }} variant="contained" color="primary" type="submit">Enter</Button>
                 </Grid>
             </form>
-            { itemsCarouselArray.length > 1 ? <h2>Enter Item Info</h2> : <h2></h2>}
-            <Carousel interval={null}>
-                {itemsCarouselArray}
-            </Carousel>
+            { itemsCarouselArray.length > 0 ? <h2>Enter Item Info</h2> : <h2></h2>}
+            { itemsCarouselArray.length > 0 ? 
+                <Carousel 
+                    navButtonsAlwaysVisible="true" interval={null}
+                    navButtonsProps={{
+                        style: {
+                            backgroundColor: "blueviolet",
+                            color: "white",
+                            borderRadius: 50,
+                        }
+                    }}
+                    >
+                    {itemsCarouselArray}
+                </Carousel> 
+                : <h2></h2>}
             <br />
             <br />
             <br />
-            { itemsCarouselArray.length > 0 ? <Button variant="contained" color="primary" type="submit" onClick={handleItemsCarouselFormSubmit}>Submit All Items</Button> : null}
+            { itemsCarouselArray.length > 0 ? <Button variant="contained" color="success" type="submit" onClick={handleItemsCarouselFormSubmit}>Submit All Items</Button> : null}
         </div>
     )
 }

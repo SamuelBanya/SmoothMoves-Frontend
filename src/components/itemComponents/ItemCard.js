@@ -72,7 +72,7 @@ function ItemCard({ id, reducer }) {
     return (
         <div>
             <h2>Item # {id + 1}</h2>
-            <Button variant="contained" color="primary" type="submit">Delete</Button>
+            <Button variant="contained" color="error" type="submit">Delete</Button>
             <br />
             <br />
             <Grid container alignItems="center" justify="center" direction="column">

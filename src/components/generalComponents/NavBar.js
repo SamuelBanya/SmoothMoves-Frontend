@@ -7,6 +7,14 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import "../../index.css";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const headerTheme = createTheme({
+    typography: {
+        fontFamily: "Orbitron, sans-serif",
+    }
+});
 
 const linkStyles = {
     display: "inline-block",
@@ -22,7 +30,7 @@ const linkStyles = {
 function NavBar() {
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar style={{ backgroundColor: "#ff6600" }}position="static">
             <Toolbar>
                 <IconButton>
                     <NavLink
@@ -45,9 +53,11 @@ function NavBar() {
                         Items
                     </NavLink>
                 </IconButton>
-                <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    Smooth Moves
-                </Typography>
+                <ThemeProvider theme={headerTheme}>
+                    <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                        Smooth Moves
+                    </Typography>
+                </ThemeProvider>
             </Toolbar>
             </AppBar>
       </Box>
