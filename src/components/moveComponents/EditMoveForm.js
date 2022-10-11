@@ -114,6 +114,7 @@ function EditMoveForm({ moves, setMoves }) {
                         value={selectTagValue}
                         label="Select Dropoff Location"
                         onChange={handleSelectTagChange}
+                        autoWidth
                     >
                         { renderMovesArray }
                     </Select>

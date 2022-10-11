@@ -22,6 +22,7 @@ function ChooseMoveForm({ menuItemsArray, handleItemMoveSelectTagChange, itemMov
                         value={itemMoveSelectTagValue}
                         label="Select Dropoff Location"
                         onChange={handleItemMoveSelectTagChange}
+                        autoWidth
                     >
                         { menuItemsArray }
                     </Select>
