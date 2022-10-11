@@ -26,7 +26,7 @@ function About() {
             <h2>Roadmap Items</h2>
             <ul>
                 <li>
-                    The ability for the user to use map based API to show markers, and total distance required in miles.
+                    The ability for the user to use a map based API to show markers, and the total distance required in miles.
                 </li>
                 <li>
                     The ability to then export this same checklist within a separate route as an Excel spreadsheet (.'.csv', or '.xlsx') to provide to
