@@ -11,14 +11,11 @@ function CreateMoveForm()
     });
 
     const handleCreateMoveChange = (e) => {
-        // NOTE: This is the same as using obj2 = {...obj1, name: "Sam"}
-        // This is because we are utilizing the existing data by using the spread operator:
         setCreateMoveFormData({...createMoveFormData, [e.target.name]: e.target.value});
     };
 
     const handleCreateMoveFormSubmit = (e) => {
         e.preventDefault();
-        console.log("createMoveFormData inside POST request: ", createMoveFormData);
         fetch("http://localhost:9292/moves", {
         method: "POST",
         headers: {

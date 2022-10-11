@@ -1,28 +1,9 @@
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-function ItemCard({ id, reducer }) {
-    // TODO:
-    // Biggest thing I need to figure out how to do is to aggregate every individual instance of the 
-    // 'itemFormData' for each of these 'ItemCard' components within the parent 'ItemsForm' component
-    // so that I can make the 'POST' requests accordingly:
-
-    // NOTE: The quicker and dirtier way to handle this would be to just use some kind of callback function
-    // that would aggregate each and every 'ItemCard' instance into an array of objects, each of which
-    // would get updated individually
-
-    // NOTE: This is my attempt to use the 'useReducer()' React hook in this scenario, which I have no idea
-    // how to actually use in this scenario:
-    const [state, dispatch] = useReducer(reducer, {
-        name: "",
-        length: 0, 
-        width: 0,
-        height: 0,
-        weight: 0
-    })
-
+function ItemCard({ id, collectItemFormData }) {
     const [itemFormData, setItemFormData] = useState({
         name: "",
         length: 0, 
@@ -38,35 +19,23 @@ function ItemCard({ id, reducer }) {
         console.log("name: ", name);
         console.log("value: ", value);
 
+        console.log('itemFormData: ', itemFormData);
+
         setItemFormData({
             ...itemFormData,
             [name]: value,
         });
 
-        dispatch({ 
-            type: "changed_name",
-            nextName: e.target.value
-        });
+        // TODO:
+        // The quicker and dirtier way to handle this would be to just use some kind of callback function
+        // that would aggregate each 'ItemCard' instance's React controlled form data, 'itemFormData'
 
-        dispatch({ 
-            type: "changed_length",
-            nextName: e.target.value
-        });
+        // This is so that I could send all of this to the backend when the  'Submit All Items' button is
+        // clicked within the 'ItemsForm' parent component
 
-        dispatch({ 
-            type: "changed_width",
-            nextName: e.target.value
-        });
-
-        dispatch({ 
-            type: "changed_height",
-            nextName: e.target.value
-        });
-
-        dispatch({ 
-            type: "changed_weight",
-            nextName: e.target.value
-        });
+        // Also, this would have to ensure that the proper 'id' value of the specific item is being used
+        // so that ONLY that item with that specific 'id' value is updated accordingly
+        collectItemFormData(itemFormData)
     }
 
     return (

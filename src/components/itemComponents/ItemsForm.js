@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -10,57 +10,37 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
   
     const handleItemSubmit = (e) => {
       e.preventDefault();
-      console.log("handleItemSubmit() function called");
       setItemAmount(e.target[0].value);
     }
 
-    // TODO: Use the 'useReducer' hook to create a reduce to manage multiple state values into a single
-    // function called a 'reducer' via these suggested steps:
-    // 1. Call useReducer in the component that holds all of the carousel panels
-    // 2. Pass its state and dispatch results into the carousel panels.
-    // 3. Then, have the carousel panels update the reducer by calling dispatch.
-    // 4. When the user is done, all of your state will have been populated in one place.
+    let totalItemArray = [];
 
-    // NOTE: This is my attempt to aggregate the form data from the multiple child 'ItemCard' components:
-    function reducer(state, action) {
-        switch (action.type) {
-            case "changed_name": {
-                return {
-                    name: action.nextName,
-                };
-            }
-            case "changed_length": {
-                return {
-                    name: action.nextLength,
-                };
-            }
-            case "changed_width": {
-                return {
-                    name: action.nextWidth,
-                };
-            }
-            case "changed_height": {
-                return {
-                    name: action.nextHeight,
-                };
-            }
-            case "changed_weight": {
-                return {
-                    name: action.nextWeight,
-                };
-            }
-        }
-        throw Error("Unknown action: " + action.type);
+    // TODO:
+    // NOTE: The biggest issue is that even if I find an existing object containing 'itemFormData'
+    // from that specific React controlled form within the array, it might have a duplicate 'name'
+    // as another one --> 
+    // Ex: Nothing is stopping the user from entering in 'box' for the 'name' value
+    // for item 1 and item 2
+    // MDN for .find()
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+    function collectItemFormData(itemFormData) {
+        console.log("collectItemFormData within parent ItemsForm component: ");
+        console.log("itemFormData: ", itemFormData);
+        // TODO:
+        // NOTE: This is causing the 'totalItemArray' to get blanked out each time it gets updated:
+        totalItemArray.push(itemFormData);
     }
-    // function collectItemFormData(itemFormData) {
-    //     console.log("collectItemFormData within parent ItemsForm component: ");
-    //     console.log("itemFormData: ", itemFormData);
-    // }
+
+    console.log("totalItemArray: ", totalItemArray);
 
     const handleItemsCarouselFormSubmit = (e) => {
         console.log("handleItemsCarouselFormSubmit() function called");
         console.log("e: ", e);
         console.log("itemsCarouselArray: ", itemsCarouselArray);
+
+        itemsCarouselArray.forEach((itemsCarousel) => {
+            console.log("itemsCarousel: ", itemsCarousel);
+        })
         // NOTE: Use the existing 'moves' data, and index into it so that you can utilize 'itemMoveSelectTagValue' 
         // to make the appropriate fetch() request accordingly, and figure out how to create the appropriate fetch() request accordingly
         console.log("moves: ", moves);
@@ -102,7 +82,7 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
 
     // NOTE: This is where 'ItemCard' child component is being used for reference:
     for (let i = 0; i < itemAmount; i++) {
-        itemsCarouselArray.push(<ItemCard key={i} id={i} reducer={reducer} />)
+        itemsCarouselArray.push(<ItemCard key={i} id={i} collectItemFormData={collectItemFormData} />)
     }
 
     return (
