@@ -77,15 +77,23 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         console.log("Test for loop within handleItemsCarouselFormSubmit before fetch() based POST request to create items for each 'move' instance: ")
         for (let i = 0; i < itemAmount; i++) {
             console.log("i: ", i);
-            // fetch(`http://localhost:9292/${itemMoveSelectTagValue}/items`, {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //         "Accept": "application/json",
-            //     },
-            //     body: JSON.stringify()
-            // })
-            // .then((response) => response.json())
+            fetch(`http://localhost:9292/moves/${itemMoveSelectTagValue}/items`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                // NOTE: This is just to test if I am able to even make an example 'POST' request to the
+                // '/moves/:id/items' API endpoint on the backend:
+                body: JSON.stringify({
+                        name: "",
+                        length: 0, 
+                        width: 0,
+                        height: 0,
+                        weight: 0
+                    })
+            })
+            .then((response) => response.json())
         }
     }
 

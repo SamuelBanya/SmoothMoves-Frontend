@@ -13,19 +13,11 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 const headerTheme = createTheme({
     typography: {
         fontFamily: "Orbitron, sans-serif",
+        allVariants: {
+            color: "yellow"
+        },
     }
 });
-
-const linkStyles = {
-    display: "inline-block",
-    width: "60px",
-    padding: "12px",
-    margin: "0 6px 6px",
-    background: "#00fc8f",
-    textDecoration: "none",
-    fontWeight: "bold",
-    color: "black",
-  };
 
 function NavBar() {
     return (
@@ -34,6 +26,7 @@ function NavBar() {
             <Toolbar>
                 <IconButton>
                     <NavLink
+                        className="NavLink"
                         to="/"
                     >
                         About
@@ -41,6 +34,7 @@ function NavBar() {
                 </IconButton>
                 <IconButton>
                     <NavLink
+                        className="NavLink"
                         to="/moves"
                     >
                         Move
@@ -48,6 +42,7 @@ function NavBar() {
                 </IconButton>
                 <IconButton>
                     <NavLink
+                        className="NavLink"
                         to="/items"
                     >
                         Items
@@ -55,7 +50,7 @@ function NavBar() {
                 </IconButton>
                 <ThemeProvider theme={headerTheme}>
                     <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Smooth Moves
+                        🌴 Smooth Moves 🚚
                     </Typography>
                 </ThemeProvider>
             </Toolbar>
