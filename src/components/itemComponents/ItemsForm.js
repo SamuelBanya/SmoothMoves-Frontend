@@ -29,6 +29,8 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         // TODO:
         // NOTE: This is causing the 'totalItemArray' to get blanked out each time it gets updated:
         totalItemArray.push(itemFormData);
+        // NOTE: Possible line to maybe use, not sure:
+        // setCreateMoveFormData({...createMoveFormData, [e.target.name]: e.target.value});
     }
 
     console.log("totalItemArray: ", totalItemArray);

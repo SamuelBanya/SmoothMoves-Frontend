@@ -8,7 +8,7 @@ function Items({ moves }) {
     const [itemMoveSelectTagValue, setItemMoveSelectTagValue] = useState("");
 
     function handleItemMoveSelectTagChange(e) {
-      console.log("handleItemMoveSelectTagChange() function called in ChooseMoveForm child component")
+      console.log("handleItemMoveSelectTagChange() function called in parent Items component")
       console.log("e: ", e);
       console.log("e.target.value: ", e.target.value);
       setItemMoveSelectTagValue(e.target.value);
