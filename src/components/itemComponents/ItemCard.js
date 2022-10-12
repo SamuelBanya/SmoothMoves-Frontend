@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 
 function ItemCard({ id, collectItemFormData }) {
     const [itemFormData, setItemFormData] = useState({
+        // NOTE: Added an 'id' value to distinguish each 'ItemCard' instance from each other:
         name: "",
         length: 0, 
         width: 0,
@@ -15,26 +16,18 @@ function ItemCard({ id, collectItemFormData }) {
     function handleItemFormChange(e) {
         const name = e.target.name;
         let value = e.target.value;
-        console.log("handleItemFormChange() function called in child ItemCard component: ")
-        console.log("name: ", name);
-        console.log("value: ", value);
-
-        console.log('itemFormData: ', itemFormData);
 
         setItemFormData({
             ...itemFormData,
             [name]: value,
+            // NOTE: Here we are using the 'id' value so that we can identify this formData to update accordingly
+            // when we aggregate the data in the parent ItemsForm component:
+            // NOTE: This is showing up as the value itself, so I'm not sure how I can create a new 'item_id'
+            // key itself
+            [id]: id
         });
 
-        // TODO:
-        // The quicker and dirtier way to handle this would be to just use some kind of callback function
-        // that would aggregate each 'ItemCard' instance's React controlled form data, 'itemFormData'
-
-        // This is so that I could send all of this to the backend when the  'Submit All Items' button is
-        // clicked within the 'ItemsForm' parent component
-
-        // Also, this would have to ensure that the proper 'id' value of the specific item is being used
-        // so that ONLY that item with that specific 'id' value is updated accordingly
+        // NOTE: This ie being used to aggregate all of the 'itemFormData' from all child ItemCard components:
         collectItemFormData(itemFormData)
     }
 

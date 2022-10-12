@@ -13,27 +13,16 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
       setItemAmount(e.target[0].value);
     }
 
-    let totalItemArray = [];
+    const [totalItemArray, setTotalItemArray] = useState([]);
 
-    // TODO:
-    // NOTE: The biggest issue is that even if I find an existing object containing 'itemFormData'
-    // from that specific React controlled form within the array, it might have a duplicate 'name'
-    // as another one --> 
-    // Ex: Nothing is stopping the user from entering in 'box' for the 'name' value
-    // for item 1 and item 2
-    // MDN for .find()
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
     function collectItemFormData(itemFormData) {
-        console.log("collectItemFormData within parent ItemsForm component: ");
-        console.log("itemFormData: ", itemFormData);
-        // TODO:
-        // NOTE: This is causing the 'totalItemArray' to get blanked out each time it gets updated:
-        totalItemArray.push(itemFormData);
-        // NOTE: Possible line to maybe use, not sure:
-        // setCreateMoveFormData({...createMoveFormData, [e.target.name]: e.target.value});
+        // NOTE: I need to figure out how to specifically filter for the 'itemFormData' that 
+        // matches the 'id' value to prevent duplicates:
+        setTotalItemArray([...totalItemArray, itemFormData]);
+        console.log("totalItemArray AFTER state set: ", totalItemArray);
     }
 
-    console.log("totalItemArray: ", totalItemArray);
+    // console.log("totalItemArray within parent ItemsForm component's general function section: ", totalItemArray);
 
     const handleItemsCarouselFormSubmit = (e) => {
         console.log("handleItemsCarouselFormSubmit() function called");
@@ -56,6 +45,10 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         // TODO: I need to somehow get the individual data from each 'ItemCard' component in the form of an array of
         // 'itemFormData' objects that contain each specific item's data so that I can make individual POST 
         // requests accordingly:
+
+        console.log("totalItemArray from handleItemsCarouselFormSubmit() function: ");
+        console.log(totalItemArray);
+
         console.log("Test for loop within handleItemsCarouselFormSubmit before fetch() based POST request to create items for each 'move' instance: ")
         for (let i = 0; i < itemAmount; i++) {
             console.log("i: ", i);
