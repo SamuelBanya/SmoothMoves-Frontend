@@ -25,9 +25,18 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         // according to this StackOverflow post:
         // https://stackoverflow.com/questions/33088482/onchange-in-react-doesnt-capture-the-last-character-of-text
         console.log("Using .find() in collectItemFormData() function: ");
-        let dataMatch = totalItemArray.find((data) => data.item_id === itemFormData.item_id)
-        console.log("dataMatch: ", dataMatch);
-        setTotalItemArray([...totalItemArray, itemFormData]);
+        let dataMatch = totalItemArray.find((item) => item.item_id === itemFormData.item_id);
+        if (dataMatch) {
+            let newTotalItemArray = totalItemArray.map((item) => item.item_id === itemFormData.item_id ? itemFormData : item);
+            console.log("dataMatch: ", dataMatch);
+            console.log("newTotalItemArray: ", newTotalItemArray);
+            // setTotalItemArray([...totalItemArray, itemFormData]);
+            setTotalItemArray(newTotalItemArray);
+        }
+        else {
+            setTotalItemArray([...totalItemArray, itemFormData]);
+        }
+        // debugger;
     }
 
     // console.log("totalItemArray within parent ItemsForm component's general function section: ", totalItemArray);
