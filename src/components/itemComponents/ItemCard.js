@@ -18,10 +18,6 @@ function ItemCard({ id, collectItemFormData }) {
         const name = e.target.name;
         let value = e.target.value;
 
-        console.log("LOOKING AT handleItemFormChange: ");
-        console.log("itemFormData: ", itemFormData);
-        console.log("id in child ItemCard component within handleItemFormChange: ", id);
-
         setItemFormData({
             ...itemFormData,
             [name]: value,
@@ -37,8 +33,6 @@ function ItemCard({ id, collectItemFormData }) {
     return (
         <div>
             <h2>Item # {id + 1}</h2>
-            <Button variant="contained" color="error" type="submit">Delete</Button>
-            <br />
             <br />
             <Grid container alignItems="center" justify="center" direction="column">
                 <Grid item>

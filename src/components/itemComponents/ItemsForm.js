@@ -18,8 +18,16 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
     function collectItemFormData(itemFormData) {
         // NOTE: I need to figure out how to specifically filter for the 'itemFormData' that 
         // matches the 'id' value to prevent duplicates:
+        console.log("CHECKING collectItemFormData function");
+        console.log("itemFormData: ", itemFormData);
+        console.log("totalItemArray: ", totalItemArray);
+        // NOTE: I need to use 'useState' AND 'useEffect' for this to be properly updated asynchronously
+        // according to this StackOverflow post:
+        // https://stackoverflow.com/questions/33088482/onchange-in-react-doesnt-capture-the-last-character-of-text
+        console.log("Using .find() in collectItemFormData() function: ");
+        let dataMatch = totalItemArray.find((data) => data.item_id === itemFormData.item_id)
+        console.log("dataMatch: ", dataMatch);
         setTotalItemArray([...totalItemArray, itemFormData]);
-        console.log("totalItemArray AFTER state set: ", totalItemArray);
     }
 
     // console.log("totalItemArray within parent ItemsForm component's general function section: ", totalItemArray);
