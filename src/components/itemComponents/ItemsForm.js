@@ -52,17 +52,15 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
     }
 
     // CHECKLIST SPECIFIC PORTION:
-    let checklistItems = [];
+    let itemNames = [];
     let renderedChecklistItems = [];
 
     const handleItemsCarouselFormSubmit = (e) => {
         console.log("handleItemsCarouselFormSubmit() function called");
         console.log("e: ", e);
-        console.log("itemsCarouselArray: ", itemsCarouselArray);
 
-        itemsCarouselArray.forEach((itemsCarousel) => {
-            console.log("itemsCarousel: ", itemsCarousel);
-        })
+        console.log("allTheItems from handleItemsCarouselFormSubmit: ", allTheItems);
+
         // NOTE: Use the existing 'moves' data, and index into it so that you can utilize 'itemMoveSelectTagValue' 
         // to make the appropriate fetch() request accordingly, and figure out how to create the appropriate fetch() request accordingly
         console.log("moves: ", moves);
@@ -118,33 +116,16 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
                 .then((data) => {
                     console.log("data.items aka all the checklist items: ", data.items);
                     data.items.forEach((item) => {
-                        checklistItems.push(item.name);
-                        console.log("checklistItems inside forEach loop after GET request: ", checklistItems);
+                        itemNames.push(item.name);
+                        // console.log("itemNames inside forEach loop after GET request: ", itemNames);
                     })
-
-                    // console.log("item.name: ", item.name);
-                    // let listItem = <li>{item.name}</li>
-                    // checklistItems.push(listItem);
-                    // debugger;
-                    // checklistItems.push(<li key={item.id}>item.name</li>);
-                    // console.log("checklistItems at the end of each loop: ", checklistItems);
-
-                    // Attempt using single variable to store entire list items:
-                    // const checklistItems = () =>  (
-                    //     <ul>
-                    //         {
-                    //             data.items.map((item) => (
-                    //                 <li key={item.id}>{item.name}</li>
-                    //             ))}
-                    //     </ul>
-                    // );
                 })
             )
         }
     }
 
     // CHECKLIST TEST 
-    renderedChecklistItems = checklistItems.map((item) => (
+    renderedChecklistItems = itemNames.map((item) => (
         <li>
             {item}
         </li>
@@ -162,10 +143,21 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
     // Create array to render items based carousel on screen:
     let itemsCarouselArray = [];
 
+    const allTheItems = [];
     // NOTE: This is where 'ItemCard' child component is being used for reference:
     for (let i = 0; i < itemAmount; i++) {
         itemsCarouselArray.push(<ItemCard key={i} id={i} collectItemFormData={collectItemFormData}/>)
+        allTheItems.push({
+            item_id: i,
+            name: "",
+            length: 0, 
+            width: 0,
+            height: 0,
+            weight: 0
+        });
     }
+
+    // console.log("PARENT: allTheItems: ", allTheItems);
 
     return (
         <div>
