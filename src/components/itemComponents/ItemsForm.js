@@ -13,33 +13,29 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
       setItemAmount(e.target[0].value);
     }
 
-    const [totalItemArray, setTotalItemArray] = useState([]);
+    const [totalItemsArray, setTotalItemsArray] = useState([]);
 
     function collectItemFormData(itemFormData) {
         // NOTE: I need to figure out how to specifically filter for the 'itemFormData' that 
         // matches the 'id' value to prevent duplicates:
         console.log("CHECKING collectItemFormData function");
         console.log("itemFormData: ", itemFormData);
-        console.log("totalItemArray: ", totalItemArray);
+        console.log("totalItemsArray: ", totalItemsArray);
         // NOTE: I need to use 'useState' AND 'useEffect' for this to be properly updated asynchronously
         // according to this StackOverflow post:
         // https://stackoverflow.com/questions/33088482/onchange-in-react-doesnt-capture-the-last-character-of-text
         console.log("Using .find() in collectItemFormData() function: ");
-        let dataMatch = totalItemArray.find((item) => item.item_id === itemFormData.item_id);
+        let dataMatch = totalItemsArray.find((item) => item.item_id === itemFormData.item_id);
         if (dataMatch) {
-            let newTotalItemArray = totalItemArray.map((item) => item.item_id === itemFormData.item_id ? itemFormData : item);
+            let newTotalItemsArray = totalItemsArray.map((item) => item.item_id === itemFormData.item_id ? itemFormData : item);
             console.log("dataMatch: ", dataMatch);
-            console.log("newTotalItemArray: ", newTotalItemArray);
-            // setTotalItemArray([...totalItemArray, itemFormData]);
-            setTotalItemArray(newTotalItemArray);
+            console.log("newTotalItemsArray: ", newTotalItemsArray);
+            setTotalItemsArray(newTotalItemsArray);
         }
         else {
-            setTotalItemArray([...totalItemArray, itemFormData]);
+            setTotalItemsArray([...totalItemsArray, itemFormData]);
         }
-        // debugger;
     }
-
-    // console.log("totalItemArray within parent ItemsForm component's general function section: ", totalItemArray);
 
     const handleItemsCarouselFormSubmit = (e) => {
         console.log("handleItemsCarouselFormSubmit() function called");
@@ -63,8 +59,8 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         // 'itemFormData' objects that contain each specific item's data so that I can make individual POST 
         // requests accordingly:
 
-        console.log("totalItemArray from handleItemsCarouselFormSubmit() function: ");
-        console.log(totalItemArray);
+        console.log("totalItemsArray from handleItemsCarouselFormSubmit() function: ");
+        console.log(totalItemsArray);
 
         console.log("Test for loop within handleItemsCarouselFormSubmit before fetch() based POST request to create items for each 'move' instance: ")
         for (let i = 0; i < itemAmount; i++) {
@@ -78,12 +74,13 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
                 // NOTE: This is just to test if I am able to even make an example 'POST' request to the
                 // '/moves/:id/items' API endpoint on the backend:
                 body: JSON.stringify({
-                        name: "",
-                        length: 0, 
-                        width: 0,
-                        height: 0,
-                        weight: 0
-                    })
+                    name: totalItemsArray[i].name,
+                    length: totalItemsArray[i].length,
+                    width: totalItemsArray[i].width,
+                    height: totalItemsArray[i].height,
+                    weight: totalItemsArray[i].weight,
+
+                })
             })
             .then((response) => response.json())
         }
