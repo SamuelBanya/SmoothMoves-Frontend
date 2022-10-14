@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import ChooseMoveForm from "./ChooseMoveForm";
 import ItemsForm from "./ItemsForm";
-import Checklist from "./Checklist";
 
 function Items({ moves }) {
     const [itemMoveSelectTagValue, setItemMoveSelectTagValue] = useState("");
@@ -16,13 +15,15 @@ function Items({ moves }) {
 
     let menuItemsArray = moves.map(move => <MenuItem key={move["id"]} value={move["id"]}>{move["dropoff_location"]}</MenuItem> );
 
+
+    // <Checklist moves={moves} itemMoveSelectTagValue={itemMoveSelectTagValue} />
+
     return (
         <div>
             <ChooseMoveForm 
               menuItemsArray={menuItemsArray} handleItemMoveSelectTagChange={handleItemMoveSelectTagChange} itemMoveSelectTagValue={itemMoveSelectTagValue}
             />
             <ItemsForm moves={moves} itemMoveSelectTagValue={itemMoveSelectTagValue} />
-            <Checklist moves={moves} itemMoveSelectTagValue={itemMoveSelectTagValue} />
         </div>
     )
 }

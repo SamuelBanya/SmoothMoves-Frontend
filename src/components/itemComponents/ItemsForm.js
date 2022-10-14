@@ -37,6 +37,10 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         }
     }
 
+    // CHECKLIST SPECIFIC PORTION:
+    let checklistItems = [];
+    let renderedChecklistItems = [];
+
     const handleItemsCarouselFormSubmit = (e) => {
         console.log("handleItemsCarouselFormSubmit() function called");
         console.log("e: ", e);
@@ -65,6 +69,10 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         console.log("Test for loop within handleItemsCarouselFormSubmit before fetch() based POST request to create items for each 'move' instance: ")
         for (let i = 0; i < itemAmount; i++) {
             console.log("i: ", i);
+            console.log("totalItemsArray[" + i + "]: ", totalItemsArray[i]);
+            // console.log("Adding totalItemsArray[", i, "].name: ", totalItemsArray[i].name, " to renderedChecklistItems: ");
+            // renderedChecklistItems.push(totalItemsArray[i].name);
+            // console.log("renderedChecklistItems: ", renderedChecklistItems);
             fetch(`http://localhost:9292/moves/${itemMoveSelectTagValue}/items`, {
                 method: "POST",
                 headers: {
@@ -83,8 +91,55 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
                 })
             })
             .then((response) => response.json())
+            // Make another fetch request to grab all the checklist items to display below:
+            .then( 
+                fetch(`http://localhost:9292/moves/${itemMoveSelectTagValue}/items`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                    },
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("data.items aka all the checklist items: ", data.items);
+                    data.items.forEach((item) => {
+                        checklistItems.push(item.name);
+                        console.log("checklistItems inside forEach loop after GET request: ", checklistItems);
+                    })
+
+                    // console.log("item.name: ", item.name);
+                    // let listItem = <li>{item.name}</li>
+                    // checklistItems.push(listItem);
+                    // debugger;
+                    // checklistItems.push(<li key={item.id}>item.name</li>);
+                    // console.log("checklistItems at the end of each loop: ", checklistItems);
+
+                    // Attempt using single variable to store entire list items:
+                    // const checklistItems = () =>  (
+                    //     <ul>
+                    //         {
+                    //             data.items.map((item) => (
+                    //                 <li key={item.id}>{item.name}</li>
+                    //             ))}
+                    //     </ul>
+                    // );
+                })
+            )
         }
     }
+
+    // CHECKLIST TEST 
+    renderedChecklistItems = checklistItems.map((item) => (
+        <li>
+            {item}
+        </li>
+    ));
+
+    // TODO: Figure out why this isn't getting rendered properly:
+    // console.log("\nCHECKLIST TEST: ");
+    // console.log("renderedChecklistItems: ", renderedChecklistItems);
+    // console.log("checklistItems: ", checklistItems);
 
     // Create array to render items based carousel on screen:
     let itemsCarouselArray = [];
@@ -130,7 +185,9 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
             <br />
             <br />
             <br />
-            { itemsCarouselArray.length > 0 ? <Button variant="contained" color="success" type="submit" onClick={handleItemsCarouselFormSubmit}>Submit All Items</Button> : null}
+            { itemsCarouselArray.length > 0 ? <Button variant="contained" color="success" type="submit" onClick={handleItemsCarouselFormSubmit}>Submit Items For Checklist</Button> : null}
+            <h2>Checklist</h2>
+            <ul>{renderedChecklistItems}</ul>
         </div>
     )
 }
