@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -24,16 +24,29 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         // NOTE: I need to use 'useState' AND 'useEffect' for this to be properly updated asynchronously
         // according to this StackOverflow post:
         // https://stackoverflow.com/questions/33088482/onchange-in-react-doesnt-capture-the-last-character-of-text
+
+        // TODO:
+        // NOTE: ONLY the first item in the form returns a blank result until you go back and add a value to the controlled
+        // form, which needs to be fixed
+        // NOTE: I think it's because of the very first time the 'useState' hook is called for 'itemFormData', it
+        // is adding the default 'zeroed' values above from 'itemFormData' to the beginning of the list
+        // NOTE: I think this is something to do with how 'totalItemsArray' is being updated for the VERY first
+        // item
         console.log("Using .find() in collectItemFormData() function: ");
         let dataMatch = totalItemsArray.find((item) => item.item_id === itemFormData.item_id);
+        console.log("dataMatch: ", dataMatch);
+        console.log("itemFormData.item_id: ", itemFormData.item_id);
         if (dataMatch) {
             let newTotalItemsArray = totalItemsArray.map((item) => item.item_id === itemFormData.item_id ? itemFormData : item);
-            console.log("dataMatch: ", dataMatch);
-            console.log("newTotalItemsArray: ", newTotalItemsArray);
             setTotalItemsArray(newTotalItemsArray);
+            console.log("After If condition:");
+            console.log("dataMatch: ", dataMatch);
+            console.log("totalItemsArray: ", totalItemsArray);
         }
         else {
             setTotalItemsArray([...totalItemsArray, itemFormData]);
+            console.log("After Else condition:");
+            console.log("totalItemsArray: ", totalItemsArray);
         }
     }
 
@@ -141,12 +154,16 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
     // console.log("renderedChecklistItems: ", renderedChecklistItems);
     // console.log("checklistItems: ", checklistItems);
 
+    // useEffect(() => {
+    //     console.log("checklistItems: ", checklistItems);
+    // }); 
+
     // Create array to render items based carousel on screen:
     let itemsCarouselArray = [];
 
     // NOTE: This is where 'ItemCard' child component is being used for reference:
     for (let i = 0; i < itemAmount; i++) {
-        itemsCarouselArray.push(<ItemCard key={i} id={i} collectItemFormData={collectItemFormData} />)
+        itemsCarouselArray.push(<ItemCard key={i} id={i} collectItemFormData={collectItemFormData}/>)
     }
 
     return (
@@ -170,6 +187,7 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
             { itemsCarouselArray.length > 0 ? <h2>Enter Item Info</h2> : <h2></h2>}
             { itemsCarouselArray.length > 0 ? 
                 <Carousel 
+                    fullHeightHover={false}
                     navButtonsAlwaysVisible="true" interval={null}
                     navButtonsProps={{
                         style: {

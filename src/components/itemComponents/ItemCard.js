@@ -23,6 +23,11 @@ function ItemCard({ id, collectItemFormData }) {
         const name = e.target.name;
         let value = e.target.value;
 
+        // TODO:
+        // NOTE: ONLY the first item in the form returns a blank result until you go back and add a value to the controlled
+        // form, which needs to be fixed
+        // NOTE: I think it's because of the very first time the 'useState' hook is called for 'itemFormData', it
+        // is adding the default 'zeroed' values above from 'itemFormData' to the beginning of the list
         setItemFormData({
             ...itemFormData,
             [name]: value,
@@ -32,7 +37,7 @@ function ItemCard({ id, collectItemFormData }) {
         });
 
         // NOTE: This ie being used to aggregate all of the 'itemFormData' from all child ItemCard components:
-        collectItemFormData(itemFormData)
+        collectItemFormData(itemFormData);
     }
 
     return (
