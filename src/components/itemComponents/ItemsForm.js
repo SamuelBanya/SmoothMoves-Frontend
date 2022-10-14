@@ -25,13 +25,6 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         // according to this StackOverflow post:
         // https://stackoverflow.com/questions/33088482/onchange-in-react-doesnt-capture-the-last-character-of-text
 
-        // TODO:
-        // NOTE: ONLY the first item in the form returns a blank result until you go back and add a value to the controlled
-        // form, which needs to be fixed
-        // NOTE: I think it's because of the very first time the 'useState' hook is called for 'itemFormData', it
-        // is adding the default 'zeroed' values above from 'itemFormData' to the beginning of the list
-        // NOTE: I think this is something to do with how 'totalItemsArray' is being updated for the VERY first
-        // item
         console.log("Using .find() in collectItemFormData() function: ");
         let dataMatch = totalItemsArray.find((item) => item.item_id === itemFormData.item_id);
         console.log("dataMatch: ", dataMatch);
@@ -44,6 +37,14 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
             console.log("totalItemsArray: ", totalItemsArray);
         }
         else {
+        // TODO:
+        // NOTE: It is this ELSE condition that is causing this behavior:
+        // NOTE: ONLY the first item in the form returns a blank result until you go back and add a value to the controlled
+        // form, which needs to be fixed
+        // NOTE: I think it's because of the very first time the 'useState' hook is called for 'itemFormData', it
+        // is adding the default 'zeroed' values above from 'itemFormData' to the beginning of the list
+        // NOTE: I think this is something to do with how 'totalItemsArray' is being updated for the VERY first
+        // item
             setTotalItemsArray([...totalItemsArray, itemFormData]);
             console.log("After Else condition:");
             console.log("totalItemsArray: ", totalItemsArray);
