@@ -114,27 +114,29 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
                 })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log("data.items aka all the checklist items: ", data.items);
+                    // console.log("data.items aka all the checklist items: ", data.items);
                     data.items.forEach((item) => {
                         itemNames.push(item.name);
                         // console.log("itemNames inside forEach loop after GET request: ", itemNames);
                     })
+                    console.log("itemNames outside .forEach() loop: ", itemNames);
                 })
             )
         }
     }
 
     // CHECKLIST TEST 
-    renderedChecklistItems = itemNames.map((item) => (
-        <li>
-            {item}
-        </li>
-    ));
+    renderedChecklistItems = itemNames.map((item) => {
+        return (
+            <li>
+                {item}
+            </li>
+        )
+    });
 
     // TODO: Figure out why this isn't getting rendered properly:
-    // console.log("\nCHECKLIST TEST: ");
-    // console.log("renderedChecklistItems: ", renderedChecklistItems);
-    // console.log("checklistItems: ", checklistItems);
+    console.log("\nCHECKLIST TEST: ");
+    console.log("renderedChecklistItems: ", renderedChecklistItems);
 
     // useEffect(() => {
     //     console.log("checklistItems: ", checklistItems);
