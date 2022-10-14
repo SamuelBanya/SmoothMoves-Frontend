@@ -15,11 +15,11 @@ function ItemCard({ id, collectItemFormData }) {
 
     // Use a 'useEffect()' hook here to remount the existing form to keep 'itemFormData' up to date with the latest item:
     useEffect(() => {
-        console.log("useEffect in ItemCard child component to update itemFormData");
-        console.log("*****************************************");
+        // console.log("useEffect in ItemCard child component to update itemFormData");
+        // console.log("*****************************************");
         setItemFormData({...itemFormData, item_id: id});
-        console.log("itemFormData: ", itemFormData);
-        console.log("*****************************************");
+        // console.log("itemFormData: ", itemFormData);
+        // console.log("*****************************************");
     }, []);
 
     function handleItemFormChange(e) {
