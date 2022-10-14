@@ -52,8 +52,10 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
     }
 
     // CHECKLIST SPECIFIC PORTION:
-    let itemNames = [];
+    // let itemNames = [];
     let renderedChecklistItems = [];
+
+    const [itemNames, setItemNames] = useState([]);
 
     const handleItemsCarouselFormSubmit = (e) => {
         console.log("handleItemsCarouselFormSubmit() function called");
@@ -79,64 +81,91 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
         console.log(totalItemsArray);
 
         console.log("Test for loop within handleItemsCarouselFormSubmit before fetch() based POST request to create items for each 'move' instance: ")
-        for (let i = 0; i < itemAmount; i++) {
-            console.log("i: ", i);
-            console.log("totalItemsArray[" + i + "]: ", totalItemsArray[i]);
-            // console.log("Adding totalItemsArray[", i, "].name: ", totalItemsArray[i].name, " to renderedChecklistItems: ");
-            // renderedChecklistItems.push(totalItemsArray[i].name);
-            // console.log("renderedChecklistItems: ", renderedChecklistItems);
-            fetch(`http://localhost:9292/moves/${itemMoveSelectTagValue}/items`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                // NOTE: This is just to test if I am able to even make an example 'POST' request to the
-                // '/moves/:id/items' API endpoint on the backend:
-                body: JSON.stringify({
-                    name: totalItemsArray[i].name,
-                    length: totalItemsArray[i].length,
-                    width: totalItemsArray[i].width,
-                    height: totalItemsArray[i].height,
-                    weight: totalItemsArray[i].weight,
 
-                })
+        // Create a state variable, 'newItemsList'
+        fetch(`http://localhost:9292/test/${itemMoveSelectTagValue}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            // NOTE: This is just to test if I am able to even make an example 'POST' request to the
+            // '/moves/:id/items' API endpoint on the backend:
+            // body: Json.stringify({items: [… multiple items] })
+            body: JSON.stringify({
+                items: totalItemsArray
             })
-            .then((response) => response.json())
-            // Make another fetch request to grab all the checklist items to display below:
-            .then( 
-                fetch(`http://localhost:9292/moves/${itemMoveSelectTagValue}/items`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                    },
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                    // console.log("data.items aka all the checklist items: ", data.items);
-                    data.items.forEach((item) => {
-                        itemNames.push(item.name);
-                        // console.log("itemNames inside forEach loop after GET request: ", itemNames);
-                    })
-                    console.log("itemNames outside .forEach() loop: ", itemNames);
-                })
-            )
-        }
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            console.log("response: ", response);
+        })
+
+        // for (let i = 0; i < itemAmount; i++) {
+        //     console.log("i: ", i);
+        //     console.log("totalItemsArray[" + i + "]: ", totalItemsArray[i]);
+        //     // console.log("Adding totalItemsArray[", i, "].name: ", totalItemsArray[i].name, " to renderedChecklistItems: ");
+        //     // renderedChecklistItems.push(totalItemsArray[i].name);
+        //     // console.log("renderedChecklistItems: ", renderedChecklistItems);
+        //     fetch(`http://localhost:9292/moves/${itemMoveSelectTagValue}/items`, {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             "Accept": "application/json",
+        //         },
+        //         // NOTE: This is just to test if I am able to even make an example 'POST' request to the
+        //         // '/moves/:id/items' API endpoint on the backend:
+        //         body: JSON.stringify({
+        //             name: totalItemsArray[i].name,
+        //             length: totalItemsArray[i].length,
+        //             width: totalItemsArray[i].width,
+        //             height: totalItemsArray[i].height,
+        //             weight: totalItemsArray[i].weight,
+
+        //         })
+        //     })
+        //     .then((response) => response.json())
+        //     // Make another fetch request to grab all the checklist items to display below:
+        //     .then(
+        //         response => {
+        //             console.log("response.name: ", response.name);
+        //             setItemNames([...itemNames, response.name]);
+        //             console.log("itemNames: ", itemNames);
+        //         }
+        //         // fetch(`http://localhost:9292/moves/${itemMoveSelectTagValue}/items`, {
+        //         //     method: "GET",
+        //         //     headers: {
+        //         //         "Content-Type": "application/json",
+        //         //         "Accept": "application/json",
+        //         //     },
+        //         // })
+        //         // .then((response) => response.json())
+        //         // .then((data) => {
+        //         //     // console.log("data.items aka all the checklist items: ", data.items);
+        //         //     data.items.forEach((item) => {
+        //         //         itemNames.push(item.name);
+        //         //         // console.log("itemNames inside forEach loop after GET request: ", itemNames);
+        //         //     })
+        //         //     console.log("itemNames outside .forEach() loop: ", itemNames);
+        //         // })
+                // )
+        // }
     }
 
     // CHECKLIST TEST 
-    renderedChecklistItems = itemNames.map((item) => {
-        return (
-            <li>
-                {item}
-            </li>
-        )
-    });
+    // itemNames should be state variable before the for loop
+    // console.log("itemNames in function: ", itemNames);
+    // renderedChecklistItems = itemNames.map((item) => {
+    //     return (
+    //         <li>
+    //             {item}
+    //         </li>
+    //     )
+    // });
 
     // TODO: Figure out why this isn't getting rendered properly:
-    console.log("\nCHECKLIST TEST: ");
-    console.log("renderedChecklistItems: ", renderedChecklistItems);
+    // console.log("\nCHECKLIST TEST: ");
+    // console.log("renderedChecklistItems: ", renderedChecklistItems);
 
     // useEffect(() => {
     //     console.log("checklistItems: ", checklistItems);
