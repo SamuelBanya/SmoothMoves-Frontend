@@ -15,9 +15,6 @@ function Items({ moves }) {
 
     let menuItemsArray = moves.map(move => <MenuItem key={move["id"]} value={move["id"]}>{move["dropoff_location"]}</MenuItem> );
 
-
-    // <Checklist moves={moves} itemMoveSelectTagValue={itemMoveSelectTagValue} />
-
     return (
         <div>
             <ChooseMoveForm 

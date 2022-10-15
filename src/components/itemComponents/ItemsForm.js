@@ -4,6 +4,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Carousel from "react-material-ui-carousel";
 import ItemCard from "./ItemCard";
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from "@mui/material/Checkbox";
+import { green, pink } from "@mui/material/colors";
+import Box from "@mui/material/Box";
 
 function ItemsForm({ moves, itemMoveSelectTagValue }) {
     const [itemAmount, setItemAmount] = useState(0);
@@ -55,7 +60,6 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
                     width: totalItemsArray[i].width,
                     height: totalItemsArray[i].height,
                     weight: totalItemsArray[i].weight,
-
                 })
             })
             .then((response) => response.json())
@@ -67,17 +71,23 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
 
     // CHECKLIST TEST 
     let itemNames = totalItemsArray.map((totalItem) => totalItem.name)
-    console.log("itemNames in function: ", itemNames);
+    // console.log("itemNames in function: ", itemNames);
     renderedChecklistItems = itemNames.map((item) => {
         return (
-            <li>
-                {item}
-            </li>
+            <FormControlLabel key={item} control={<Checkbox defaultChecked
+                sx={{
+                color: pink[800],
+                '&.Mui-checked': {
+                    color: pink[600],
+                },
+                }}
+            />}
+            label={item}/>
         )
     });
 
-    console.log("\nCHECKLIST TEST: ");
-    console.log("renderedChecklistItems: ", renderedChecklistItems);
+    // console.log("\nCHECKLIST TEST: ");
+    // console.log("renderedChecklistItems: ", renderedChecklistItems);
 
     // Create array to render items based carousel on screen:
     let itemsCarouselArray = [];
@@ -137,7 +147,7 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
             <br />
             { itemsCarouselArray.length > 0 ? <Button variant="contained" color="success" type="submit" onClick={handleItemsCarouselFormSubmit}>Submit Items For Checklist</Button> : null}
             <h2>Checklist</h2>
-            <ul>{checklistVisible ? renderedChecklistItems : null}</ul>
+            <Box display="flex" alignItems="center" justifyContent="center"><FormGroup>{checklistVisible ? renderedChecklistItems : null}</FormGroup></Box>
         </div>
     )
 }
