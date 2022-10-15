@@ -74,7 +74,7 @@ function ItemsForm({ moves, itemMoveSelectTagValue }) {
     // console.log("itemNames in function: ", itemNames);
     renderedChecklistItems = itemNames.map((item) => {
         return (
-            <FormControlLabel key={item} control={<Checkbox defaultChecked
+            <FormControlLabel key={item} control={<Checkbox 
                 sx={{
                 color: pink[800],
                 '&.Mui-checked': {
