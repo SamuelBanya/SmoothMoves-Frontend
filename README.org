@@ -12,3 +12,9 @@ Run the frontend with this command:
 #+begin_src bash
 npm start
 #+end_src
+
+* Backend Location
+The 'backend' for this project can be found here:
+- https://github.com/SamuelBanya/SmoothMoves
+
+Please use the above README as the more definitive readme for this project as I only made one definitive one to prevent duplicative work.
